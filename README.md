@@ -33,11 +33,8 @@ Aplicación web moderna para concesionaria multimarcas desarrollada con React, T
 
 2. **Configurar variables de entorno (opcional):**
    ```bash
-   # Copia el archivo de ejemplo
+   # Copia el archivo de ejemplo (no se requieren variables de entorno)
    cp env.example .env.local
-   
-   # Edita .env.local y agrega tu API key de Gemini si es necesario
-   GEMINI_API_KEY=tu_api_key_aqui
    ```
 
 3. **Ejecutar en modo desarrollo:**
@@ -59,9 +56,8 @@ Aplicación web moderna para concesionaria multimarcas desarrollada con React, T
    - Importa tu repositorio de GitHub
    - Vercel detectará automáticamente la configuración de Vite
 
-2. **Configura variables de entorno (si es necesario):**
-   - En el dashboard de Vercel, ve a Settings > Environment Variables
-   - Agrega `GEMINI_API_KEY` con tu valor
+2. **Configura variables de entorno (no es necesario):**
+   - No se requieren variables de entorno para esta aplicación
 
 3. **¡Listo!** Tu aplicación se desplegará automáticamente
 
@@ -111,7 +107,7 @@ salón-del-automóvil/
 - La aplicación está optimizada para Vercel con configuración automática
 - Se incluye configuración de chunks para mejor rendimiento
 - El archivo `vercel.json` maneja el routing para SPA
-- Variables de entorno se pueden configurar en el dashboard de Vercel
+- No se requieren variables de entorno para el funcionamiento de la aplicación
 
 ## 🤝 Contribución
 
