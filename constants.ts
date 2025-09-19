@@ -1,0 +1,88 @@
+
+import type { Vehicle } from './types';
+
+export const VEHICLES_0KM: Vehicle[] = [
+  {
+    id: 1,
+    make: 'Fiat',
+    model: 'Cronos Drive 1.3',
+    year: 2025,
+    price: 23500000,
+    kms: 0,
+    fuel: 'Nafta',
+    transmission: 'Manual',
+    image: '/images/0km/cronos.jpg',
+    type: '0km',
+    description: 'Automóvil de categoría B con motor 1.3L, ideal para ciudad.',
+  },
+  {
+    id: 2,
+    make: 'Volkswagen',
+    model: 'Amarok V6 3.0 TDI',
+    year: 2025,
+    price: 52000000,
+    kms: 0,
+    fuel: 'Diesel',
+    transmission: 'Automática',
+    image: '/images/0km/amarokg2.jpg',
+    type: '0km',
+    description: 'Pick-up robusta con motor V6 diesel, 4x4 y gran capacidad de carga.',
+  },
+  {
+    id: 3,
+    make: 'Jeep',
+    model: 'Renegade Limited 1.8',
+    year: 2025,
+    price: 38900000,
+    kms: 0,
+    fuel: 'Nafta',
+    transmission: 'Automática',
+    image: '/images/0km/renegade.jpg',
+    type: '0km',
+    description: 'SUV compacta con tracción 4x4, perfecta para aventuras urbanas y rurales.',
+  },
+];
+
+export const VEHICLES_USED: Vehicle[] = [
+  {
+    id: 7,
+    make: 'BMW',
+    model: '530D Executive 3.0L',
+    year: 2024,
+    price: 18500000,
+    kms: 0,
+    fuel: 'Diesel',
+    transmission: 'Automática Steptronic 6ª',
+    image: '/images/used-cars/bmw530d-main.png',
+    type: 'usado',
+    description: 'Caja Steptronic Automática 6ª Secuencial, 4 Puertas Diesel',
+  },
+  {
+    id: 8,
+    make: 'Mercedes Benz',
+    model: '380 SEC Coupe',
+    year: 1990,
+    price: 24900, // USD
+    kms: 95808,
+    fuel: 'Nafta',
+    transmission: 'Automática',
+    image: '/images/used-cars/mb380sec-main.png',
+    type: 'usado',
+    description: 'Único dueño! En imejorable estado. Auto de colección.',
+    priceCurrency: 'USD',
+  },
+  {
+    id: 9,
+    make: 'Mercedes Benz',
+    model: 'Sportcoupe C230 V6 Evolution',
+    year: 2006,
+    price: 16900, // USD
+    kms: 0,
+    fuel: 'Nafta',
+    transmission: 'Automática',
+    image: '/images/used-cars/mbc230-main.png',
+    type: 'usado',
+    description: 'Impecable estado. V6 Evolution Automático 2006.',
+    priceCurrency: 'USD',
+  },
+];

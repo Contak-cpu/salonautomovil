@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0D0D0D;
+}
+
+/* Colores sólidos y efectos visuales */
+.gradient-bg {
+  background: #1A1A1A;
+}
+
+.section-bg {
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.card-container {
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.filter-container {
+  background: #1A1A1A;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.price-highlight {
+  color: #FFFFFF;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.button-primary {
+  background: #FFFFFF;
+  color: #0D0D0D;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.button-primary:hover {
+  background: #E5E5E5;
+  color: #0D0D0D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+.button-whatsapp {
+  background: #25D366;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+}
+
+.button-whatsapp:hover {
+  background: #22C55E;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.button-secondary {
+  background: #2A2A2A;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.button-secondary:hover {
+  background: #3A3A3A;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.header-glow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+}
+
+@keyframes pulse-whatsapp {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.animate-pulse-whatsapp {
+  animation: pulse-whatsapp 2s infinite;
+}
+
+/* Separadores visuales */
+.section-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 2rem 0;
+}
+
+/* Efectos de hover mejorados */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Texto con mejor contraste */
+.text-enhanced {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Bordes redondeados consistentes */
+.rounded-enhanced {
+  border-radius: 12px;
+}
+
+/* Mejoras adicionales para el diseño */
+.badge-glow {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.category-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.vehicle-connector {
+  position: relative;
+}
+
+.vehicle-connector::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  top: -2rem;
+  width: 2px;
+  height: 2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.icon-container {
+  transition: all 0.3s ease;
+}
+
+.icon-container:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.price-badge {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animaciones suaves */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Mejoras para tarjetas de vehículos */
+.vehicle-card {
+  min-height: 400px;
+}
+
+.vehicle-card .card-image {
+  aspect-ratio: 4/3;
+  min-height: 300px;
+}
+
+.vehicle-card .card-content {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Responsive adjustments for vehicle cards */
+@media (max-width: 768px) {
+  .vehicle-card {
+    flex-direction: column !important;
+    min-height: auto;
+  }
+  
+  .vehicle-card .card-image {
+    width: 100% !important;
+    height: 250px !important;
+    min-height: 250px;
+  }
+  
+  .vehicle-card .card-content {
+    padding: 1rem !important;
+    min-height: auto;
+  }
+  
+  .vehicle-card .card-buttons {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  .category-header .flex {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  
+  .category-header .flex > div:first-child {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .vehicle-card .card-image {
+    width: 384px; /* md:w-96 */
+    height: auto;
+    min-height: 400px;
+  }
+}
+
+/* Animación para el deslizador de logos */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
