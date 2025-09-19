@@ -7,12 +7,18 @@ import Services from './components/Services';
 import FinancingBanner from './components/FinancingBanner';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import PromoPopup from './components/PromoPopup';
 import { VEHICLES_0KM, VEHICLES_USED } from './constants';
+import { usePromoPopup } from './hooks/usePromoPopup';
 
 type View = 'home' | '0km' | 'usados';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
+  const { showPopup, closePopup } = usePromoPopup(40000); // 40 segundos
+  
+  // Obtener la Jeep Renegade para la promoción
+  const renegadeVehicle = VEHICLES_0KM.find(vehicle => vehicle.make === 'Jeep' && vehicle.model === 'Renegade Limited 1.8');
 
   const handleShowCatalog = (type: '0km' | 'usados') => {
     setCurrentView(type);
@@ -63,6 +69,16 @@ const App: React.FC = () => {
         {renderContent()}
       </main>
       <Footer />
+      
+      {/* Popup promocional */}
+      {renegadeVehicle && (
+        <PromoPopup
+          isOpen={showPopup}
+          onClose={closePopup}
+          vehicle={renegadeVehicle}
+        />
+      )}
+      
       <div className="fixed bottom-6 right-6 z-50 flex flex-col space-y-3">
         {/* WhatsApp Button */}
         <a
