@@ -15,10 +15,14 @@ type View = 'home' | '0km' | 'usados';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
-  const { showPopup, closePopup } = usePromoPopup(40000); // 40 segundos
+  const { showPopup, closePopup } = usePromoPopup(5000); // 5 segundos
   
   // Obtener la Jeep Renegade para la promoción
   const renegadeVehicle = VEHICLES_0KM.find(vehicle => vehicle.make === 'Jeep' && vehicle.model === 'Renegade Limited 1.8');
+  
+  // Debug logs
+  console.log('App: showPopup:', showPopup);
+  console.log('App: renegadeVehicle:', renegadeVehicle);
 
   const handleShowCatalog = (type: '0km' | 'usados') => {
     setCurrentView(type);
