@@ -28,10 +28,10 @@ const BrandSlider: React.FC = () => {
   const duplicatedBrands = [...brands, ...brands];
 
   return (
-    <div className="relative py-8 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+    <div className="relative py-12 bg-gray-dark overflow-hidden">
       {/* Fade effects en los bordes */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-dark to-transparent z-10"></div>
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-dark to-transparent z-10"></div>
       
       {/* Slider container */}
       <div className="relative">
@@ -39,10 +39,10 @@ const BrandSlider: React.FC = () => {
           {duplicatedBrands.map((brand, index) => (
             <div
               key={`${brand.name}-${index}`}
-              className="flex-shrink-0 mx-8 flex items-center justify-center group cursor-pointer"
-              style={{ width: '120px', height: '80px' }}
+              className="flex-shrink-0 mx-12 flex items-center justify-center group cursor-pointer"
+              style={{ width: '200px', height: '120px' }}
             >
-              <div className="w-20 h-16 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <div className="w-40 h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                 <img
                   src={brand.image}
                   alt={`Logo de ${brand.name}`}
