@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Vehicle } from '../types';
 import VehicleCard from './VehicleCard';
+import VehicleDetailModal from './VehicleDetailModal';
 
 interface CatalogProps {
   title: string;
@@ -9,6 +10,18 @@ interface CatalogProps {
 }
 
 const Catalog: React.FC<CatalogProps> = ({ title, vehicles, onBack }) => {
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleViewDetails = (vehicle: Vehicle) => {
+    setSelectedVehicle(vehicle);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedVehicle(null);
+  };
 
   const getCategoryIcon = (title: string) => {
     if (title.includes('0km') || title.includes('0KM')) {
@@ -82,12 +95,19 @@ const Catalog: React.FC<CatalogProps> = ({ title, vehicles, onBack }) => {
           <div className="space-y-8">
             {vehicles.map((vehicle, index) => (
               <div key={vehicle.id} className="relative vehicle-connector fade-in-up">
-                <VehicleCard vehicle={vehicle} />
+                <VehicleCard vehicle={vehicle} onViewDetails={handleViewDetails} />
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Modal de detalles */}
+      <VehicleDetailModal
+        vehicle={selectedVehicle}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
