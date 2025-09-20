@@ -70,7 +70,7 @@ const MarcasLideres: React.FC<MarcasLideresProps> = ({ onShowCatalog }) => {
                     {VEHICLES_0KM.slice(slideIndex * slidesToShow, (slideIndex + 1) * slidesToShow).map((vehicle) => (
                       <div 
                         key={vehicle.id}
-                        className="bg-gray-dark p-6 rounded-lg text-center transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-accent/50 cursor-pointer"
+                        className="bg-white p-6 rounded-lg text-center transform hover:-translate-y-2 transition-all duration-300 border border-gray-200 hover:border-accent/50 cursor-pointer shadow-lg hover:shadow-xl"
                         onClick={handleMarcaClick}
                       >
                         {/* Imagen del vehículo */}
@@ -83,8 +83,8 @@ const MarcasLideres: React.FC<MarcasLideresProps> = ({ onShowCatalog }) => {
                         </div>
                         
                         {/* Información del vehículo */}
-                        <h3 className="text-lg font-bold text-white mb-2">{vehicle.make} {vehicle.model}</h3>
-                        <p className="text-sm text-gray-light mb-2">{vehicle.year} • {vehicle.fuel} • {vehicle.transmission}</p>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">{vehicle.make} {vehicle.model}</h3>
+                        <p className="text-sm text-gray-600 mb-2">{vehicle.year} • {vehicle.fuel} • {vehicle.transmission}</p>
                         <p className="text-accent font-bold text-xl mb-4">${vehicle.price.toLocaleString()}</p>
                         
                         {/* Botón CTA */}
