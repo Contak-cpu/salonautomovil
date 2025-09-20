@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
+import Subheader from './components/Subheader';
 import Hero from './components/Hero';
 import MarcasLideres from './components/MarcasLideres';
 import BrandSlider from './components/BrandSlider';
@@ -89,6 +90,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen gradient-bg text-white font-sans">
       <Header onShowCatalog={handleShowCatalog} onGoHome={handleBackToHome} />
+      <Subheader />
       <main>
         {renderContent()}
       </main>
