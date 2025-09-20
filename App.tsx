@@ -7,13 +7,14 @@ import Services from './components/Services';
 import FinancingBanner from './components/FinancingBanner';
 import Testimonials from './components/Testimonials';
 import Farewell from './components/Farewell';
+import NewCarsSection from './components/NewCars/NewCarsSection';
 import UsedCarsSection from './components/UsedCars/UsedCarsSection';
 import Footer from './components/Footer';
 import PromoPopup from './components/PromoPopup';
 import { VEHICLES_0KM, VEHICLES_USED } from './constants';
 import { usePromoPopup } from './hooks/usePromoPopup';
 
-type View = 'home' | '0km' | 'usados' | 'usados-catalogo';
+type View = 'home' | '0km' | '0km-catalogo' | 'usados' | 'usados-catalogo';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
@@ -29,6 +30,8 @@ const App: React.FC = () => {
   const handleShowCatalog = (type: '0km' | 'usados') => {
     if (type === 'usados') {
       setCurrentView('usados-catalogo');
+    } else if (type === '0km') {
+      setCurrentView('0km-catalogo');
     } else {
       setCurrentView(type);
     }
@@ -49,6 +52,10 @@ const App: React.FC = () => {
             vehicles={VEHICLES_0KM}
             onBack={handleBackToHome}
           />
+        );
+      case '0km-catalogo':
+        return (
+          <NewCarsSection />
         );
       case 'usados':
         return (

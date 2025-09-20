@@ -36,7 +36,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               placeholder="Buscar por marca, modelo, versión..."
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +55,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           {activeFiltersCount > 0 && (
             <button
               onClick={onClearFilters}
-              className="flex items-center gap-2 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors duration-200 text-sm"
+              className="flex items-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-200 text-sm"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -74,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <select
             value={sortBy}
             onChange={(e) => onSortChange(e.target.value as 'price' | 'year' | 'mileage' | 'brand', sortOrder)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent text-sm bg-white text-gray-900"
           >
             <option value="price">Precio</option>
             <option value="year">Año</option>
@@ -84,7 +84,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           
           <button
             onClick={() => onSortChange(sortBy, sortOrder === 'asc' ? 'desc' : 'asc')}
-            className="flex items-center gap-1 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm"
+            className="flex items-center gap-1 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm bg-white text-gray-900"
           >
             {sortOrder === 'asc' ? (
               <>
@@ -112,8 +112,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
               onClick={() => onViewModeChange('grid')}
               className={`px-3 py-2 text-sm transition-colors duration-200 ${
                 viewMode === 'grid'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-white text-gray-900 hover:bg-gray-50'
               }`}
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -124,8 +124,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
               onClick={() => onViewModeChange('list')}
               className={`px-3 py-2 text-sm transition-colors duration-200 ${
                 viewMode === 'list'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-white text-gray-900 hover:bg-gray-50'
               }`}
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

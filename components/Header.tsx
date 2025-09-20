@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
     }
 
     return (
-        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-28 flex items-center header-glow border-b-2 border-accent/30 shadow-2xl">
+        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-28 flex items-center header-glow shadow-2xl">
             <div className="container mx-auto px-8 flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">

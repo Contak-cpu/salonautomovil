@@ -70,7 +70,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
         <h3 className="text-lg font-semibold text-gray-900">Filtros</h3>
         <button
           onClick={onClearFilters}
-          className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+          className="text-sm text-gray-900 hover:text-gray-700 font-medium"
         >
           Limpiar todo
         </button>
@@ -87,7 +87,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   type="checkbox"
                   checked={filters.brands.includes(brand)}
                   onChange={() => handleArrayFilterChange('brands', brand)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">{brand}</span>
               </label>
@@ -105,7 +105,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   type="checkbox"
                   checked={filters.models.includes(model)}
                   onChange={() => handleArrayFilterChange('models', model)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">{model}</span>
               </label>
@@ -123,7 +123,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   type="checkbox"
                   checked={filters.versions.includes(version)}
                   onChange={() => handleArrayFilterChange('versions', version)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">{version}</span>
               </label>
@@ -222,7 +222,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   type="checkbox"
                   checked={filters.fuelTypes.includes(fuel)}
                   onChange={() => handleArrayFilterChange('fuelTypes', fuel)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">{fuel}</span>
               </label>
@@ -240,7 +240,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   type="checkbox"
                   checked={filters.transmissions.includes(transmission)}
                   onChange={() => handleArrayFilterChange('transmissions', transmission)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">{transmission}</span>
               </label>
@@ -258,7 +258,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   type="checkbox"
                   checked={filters.locations.includes(location)}
                   onChange={() => handleArrayFilterChange('locations', location)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">{location}</span>
               </label>

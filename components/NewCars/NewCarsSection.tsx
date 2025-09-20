@@ -1,10 +1,39 @@
 import React, { useState, useMemo } from 'react';
-import { USED_CARS, BRANDS, FUEL_TYPES, TRANSMISSIONS, LOCATIONS } from '../../constants/usedCarsData';
-import type { UsedCar } from '../../constants/usedCarsData';
-import FilterSidebar from './FilterSidebar';
-import VehicleGrid from './VehicleGrid';
-import SearchBar from './SearchBar';
-import CompareModal from './CompareModal';
+import { VEHICLES_0KM } from '../../constants';
+import type { Vehicle } from '../../types';
+import FilterSidebar from '../UsedCars/FilterSidebar';
+import VehicleGrid from '../UsedCars/VehicleGrid';
+import SearchBar from '../UsedCars/SearchBar';
+import CompareModal from '../UsedCars/CompareModal';
+
+// Función para adaptar los datos de 0km a la estructura esperada por los componentes
+const adaptVehicleData = (vehicle: Vehicle) => ({
+  id: vehicle.id.toString(),
+  make: vehicle.make,
+  model: vehicle.model,
+  version: vehicle.model, // Usar model como version para 0km
+  year: vehicle.year,
+  mileage: vehicle.kms,
+  price: vehicle.price,
+  priceCurrency: vehicle.priceCurrency || 'ARS',
+  fuelType: vehicle.fuel === 'Diesel' ? 'Diésel' : vehicle.fuel,
+  transmission: vehicle.transmission === 'Automática Steptronic 6ª' ? 'Automática' : vehicle.transmission,
+  engine: `${vehicle.fuel} ${vehicle.transmission}`,
+  color: 'Nuevo',
+  images: [vehicle.image],
+  features: ['Garantía oficial', 'Servicio incluido', 'Financiación disponible'],
+  location: 'Córdoba Capital',
+  isWarranty: true,
+  isInspected: true,
+  isFinancing: true,
+  description: vehicle.description || '',
+  seller: {
+    name: 'Salón del Automóvil',
+    phone: '+54 9 3541 579-927',
+    whatsapp: '5493541579927'
+  },
+  createdAt: new Date().toISOString().split('T')[0]
+});
 
 interface FilterState {
   search: string;
@@ -22,15 +51,18 @@ interface FilterState {
   viewMode: 'grid' | 'list';
 }
 
-const UsedCarsSection: React.FC = () => {
+const NewCarsSection: React.FC = () => {
+  // Adaptar los datos de 0km
+  const adaptedVehicles = useMemo(() => VEHICLES_0KM.map(adaptVehicleData), []);
+
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     brands: [],
     models: [],
     versions: [],
-    priceRange: [0, 50000000],
-    yearRange: [2015, 2024],
-    mileageRange: [0, 200000],
+    priceRange: [0, 60000000],
+    yearRange: [2024, 2025],
+    mileageRange: [0, 100],
     fuelTypes: [],
     transmissions: [],
     locations: [],
@@ -43,9 +75,33 @@ const UsedCarsSection: React.FC = () => {
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
 
+  // Obtener marcas únicas de los vehículos 0km
+  const brands = useMemo(() => {
+    const uniqueBrands = new Set(adaptedVehicles.map(car => car.make));
+    return Array.from(uniqueBrands).sort();
+  }, [adaptedVehicles]);
+
+  // Obtener tipos de combustible únicos
+  const fuelTypes = useMemo(() => {
+    const uniqueFuelTypes = new Set(adaptedVehicles.map(car => car.fuelType));
+    return Array.from(uniqueFuelTypes).sort();
+  }, [adaptedVehicles]);
+
+  // Obtener transmisiones únicas
+  const transmissions = useMemo(() => {
+    const uniqueTransmissions = new Set(adaptedVehicles.map(car => car.transmission));
+    return Array.from(uniqueTransmissions).sort();
+  }, [adaptedVehicles]);
+
+  // Obtener ubicaciones únicas
+  const locations = useMemo(() => {
+    const uniqueLocations = new Set(adaptedVehicles.map(car => car.location));
+    return Array.from(uniqueLocations).sort();
+  }, [adaptedVehicles]);
+
   // Filtrar vehículos
   const filteredCars = useMemo(() => {
-    let filtered = USED_CARS.filter(car => {
+    let filtered = adaptedVehicles.filter(car => {
       // Búsqueda por texto
       if (filters.search) {
         const searchTerm = filters.search.toLowerCase();
@@ -140,32 +196,32 @@ const UsedCarsSection: React.FC = () => {
 
   // Obtener modelos únicos por marca seleccionada
   const availableModels = useMemo(() => {
-    const selectedBrands = filters.brands.length > 0 ? filters.brands : BRANDS;
+    const selectedBrands = filters.brands.length > 0 ? filters.brands : brands;
     const models = new Set<string>();
     
-    USED_CARS.forEach(car => {
+    adaptedVehicles.forEach(car => {
       if (selectedBrands.includes(car.make)) {
         models.add(car.model);
       }
     });
     
     return Array.from(models).sort();
-  }, [filters.brands]);
+  }, [filters.brands, brands, adaptedVehicles]);
 
   // Obtener versiones únicas por marca y modelo seleccionados
   const availableVersions = useMemo(() => {
-    const selectedBrands = filters.brands.length > 0 ? filters.brands : BRANDS;
+    const selectedBrands = filters.brands.length > 0 ? filters.brands : brands;
     const selectedModels = filters.models.length > 0 ? filters.models : availableModels;
     const versions = new Set<string>();
     
-    USED_CARS.forEach(car => {
+    adaptedVehicles.forEach(car => {
       if (selectedBrands.includes(car.make) && selectedModels.includes(car.model)) {
         versions.add(car.version);
       }
     });
     
     return Array.from(versions).sort();
-  }, [filters.brands, filters.models, availableModels]);
+  }, [filters.brands, filters.models, availableModels, brands, adaptedVehicles]);
 
   const handleFilterChange = (newFilters: Partial<FilterState>) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
@@ -178,8 +234,8 @@ const UsedCarsSection: React.FC = () => {
       models: [],
       versions: [],
       priceRange: [0, 50000000],
-      yearRange: [2015, 2024],
-      mileageRange: [0, 200000],
+      yearRange: [2024, 2025],
+      mileageRange: [0, 100],
       fuelTypes: [],
       transmissions: [],
       locations: [],
@@ -225,7 +281,7 @@ const UsedCarsSection: React.FC = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/used-cars/bmw530d-main.png"
+            src="/images/0km/renegade.jpg"
             alt="Vehículo de fondo"
             className="w-full h-full object-cover opacity-40"
           />
@@ -235,42 +291,42 @@ const UsedCarsSection: React.FC = () => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tight leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-              Que tu próximo usado se sienta como cero
+              Vehículos 0km de última generación
             </h1>
-            <p className="text-2xl md:text-3xl text-blue-100 mb-12 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-              Asesoría personalizada, garantía extendida y servicio de posventa
+            <p className="text-2xl md:text-3xl text-gray-100 mb-12 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
+              Tecnología avanzada, garantía completa y financiación preferencial
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-                    <div className="flex items-center justify-center mb-4">
-                      <img 
-                        src="/images/banks/bna-logo.png" 
-                        alt="Banco Nación Argentina" 
-                        className="h-12 w-auto"
-                      />
-                    </div>
-                    <p className="text-blue-100 text-sm text-center">Tasas preferenciales y hasta 100% de financiación</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-                    <div className="flex items-center justify-center mb-4">
-                      <img 
-                        src="/images/banks/santander-logo.png" 
-                        alt="Banco Santander" 
-                        className="h-12 w-auto"
-                      />
-                    </div>
-                    <p className="text-blue-100 text-sm text-center">Créditos preaprobados y condiciones especiales</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
-                    <div className="flex items-center justify-center mb-4">
-                      <img 
-                        src="/images/banks/bancor-logo.png" 
-                        alt="Banco de Córdoba" 
-                        className="h-12 w-auto"
-                      />
-                    </div>
-                    <p className="text-blue-100 text-sm text-center">Financiación local con beneficios exclusivos</p>
-                  </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
+                <div className="flex items-center justify-center mb-4">
+                  <img 
+                    src="/images/banks/bna-logo.png" 
+                    alt="Banco Nación Argentina" 
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <p className="text-gray-100 text-sm text-center">Tasas preferenciales y hasta 100% de financiación</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
+                <div className="flex items-center justify-center mb-4">
+                  <img 
+                    src="/images/banks/santander-logo.png" 
+                    alt="Banco Santander" 
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <p className="text-gray-100 text-sm text-center">Créditos preaprobados y condiciones especiales</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
+                <div className="flex items-center justify-center mb-4">
+                  <img 
+                    src="/images/banks/bancor-logo.png" 
+                    alt="Banco de Córdoba" 
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <p className="text-gray-100 text-sm text-center">Financiación local con beneficios exclusivos</p>
+              </div>
             </div>
           </div>
         </div>
@@ -287,10 +343,10 @@ const UsedCarsSection: React.FC = () => {
               onClearFilters={handleClearFilters}
               availableModels={availableModels}
               availableVersions={availableVersions}
-              brands={BRANDS}
-              fuelTypes={FUEL_TYPES}
-              transmissions={TRANSMISSIONS}
-              locations={LOCATIONS}
+              brands={brands}
+              fuelTypes={fuelTypes}
+              transmissions={transmissions}
+              locations={locations}
             />
           </div>
 
@@ -325,7 +381,7 @@ const UsedCarsSection: React.FC = () => {
               <div className="fixed bottom-6 right-6 z-50">
                 <button
                   onClick={() => setShowCompareModal(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+                  className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 3H7v2h2V3zm0 4H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-12h-2v2h2V3zm0 4h-2v2h2V7zm0 4h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
@@ -341,7 +397,7 @@ const UsedCarsSection: React.FC = () => {
       {/* Compare Modal */}
       {showCompareModal && (
         <CompareModal
-          cars={USED_CARS.filter(car => selectedCars.includes(car.id))}
+          cars={adaptedVehicles.filter(car => selectedCars.includes(car.id))}
           onClose={() => setShowCompareModal(false)}
           onRemoveCar={(carId) => handleToggleCompare(carId)}
         />
@@ -350,4 +406,4 @@ const UsedCarsSection: React.FC = () => {
   );
 };
 
-export default UsedCarsSection;
+export default NewCarsSection;
