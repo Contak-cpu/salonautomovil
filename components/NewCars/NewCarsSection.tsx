@@ -261,18 +261,27 @@ const NewCarsSection: React.FC = () => {
     );
   };
 
-  const activeFiltersCount = Object.values(filters).reduce((count, value) => {
-    if (Array.isArray(value)) {
-      return count + value.length;
-    }
-    if (typeof value === 'string' && value !== '') {
-      return count + 1;
-    }
-    if (Array.isArray(value) && value.length > 0) {
-      return count + 1;
-    }
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    
+    // Contar filtros de arrays
+    if (filters.brands.length > 0) count += filters.brands.length;
+    if (filters.models.length > 0) count += filters.models.length;
+    if (filters.versions.length > 0) count += filters.versions.length;
+    if (filters.fuelTypes.length > 0) count += filters.fuelTypes.length;
+    if (filters.transmissions.length > 0) count += filters.transmissions.length;
+    if (filters.locations.length > 0) count += filters.locations.length;
+    
+    // Contar búsqueda
+    if (filters.search && filters.search.trim() !== '') count += 1;
+    
+    // Contar rangos solo si no están en sus valores por defecto
+    if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 60000000) count += 1;
+    if (filters.yearRange[0] !== 2024 || filters.yearRange[1] !== 2025) count += 1;
+    if (filters.mileageRange[0] !== 0 || filters.mileageRange[1] !== 100) count += 1;
+    
     return count;
-  }, 0);
+  }, [filters]);
 
   return (
     <div className="min-h-screen bg-gray-50 -mt-28 pt-28">

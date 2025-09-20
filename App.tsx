@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import MarcasLideres from './components/MarcasLideres';
 import BrandSlider from './components/BrandSlider';
 import Catalog from './components/Catalog';
 import Services from './components/Services';
@@ -77,6 +78,7 @@ const App: React.FC = () => {
             <BrandSlider />
             <Services />
             <FinancingBanner />
+            <MarcasLideres onShowCatalog={handleShowCatalog} />
             <Testimonials />
             <Farewell />
           </>
