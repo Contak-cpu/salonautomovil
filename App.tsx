@@ -7,12 +7,13 @@ import Services from './components/Services';
 import FinancingBanner from './components/FinancingBanner';
 import Testimonials from './components/Testimonials';
 import Farewell from './components/Farewell';
+import UsedCarsSection from './components/UsedCars/UsedCarsSection';
 import Footer from './components/Footer';
 import PromoPopup from './components/PromoPopup';
 import { VEHICLES_0KM, VEHICLES_USED } from './constants';
 import { usePromoPopup } from './hooks/usePromoPopup';
 
-type View = 'home' | '0km' | 'usados';
+type View = 'home' | '0km' | 'usados' | 'usados-catalogo';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
@@ -26,7 +27,11 @@ const App: React.FC = () => {
   console.log('App: renegadeVehicle:', renegadeVehicle);
 
   const handleShowCatalog = (type: '0km' | 'usados') => {
-    setCurrentView(type);
+    if (type === 'usados') {
+      setCurrentView('usados-catalogo');
+    } else {
+      setCurrentView(type);
+    }
     window.scrollTo(0, 0);
   };
 
@@ -52,6 +57,10 @@ const App: React.FC = () => {
             vehicles={VEHICLES_USED}
             onBack={handleBackToHome}
           />
+        );
+      case 'usados-catalogo':
+        return (
+          <UsedCarsSection />
         );
       case 'home':
       default:

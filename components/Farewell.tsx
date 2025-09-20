@@ -17,14 +17,6 @@ const Farewell: React.FC = () => {
       {/* Contenido principal */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Icono decorativo */}
-          <div className="mb-8">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-accent/20 rounded-full border-2 border-accent/30 backdrop-blur-sm">
-              <svg className="w-12 h-12 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-          </div>
 
           {/* Título principal */}
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-wider leading-tight">
