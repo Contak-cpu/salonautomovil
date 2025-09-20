@@ -251,10 +251,10 @@ const UsedCarsSection: React.FC = () => {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tight leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 tracking-tight leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
               Que tu próximo usado se sienta como cero
             </h1>
-            <p className="text-2xl md:text-3xl text-blue-100 mb-12 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
+            <p className="text-base md:text-lg text-blue-100 mb-8 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
               Asesoría personalizada, garantía extendida y servicio de posventa
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
