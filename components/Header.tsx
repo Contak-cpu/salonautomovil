@@ -37,44 +37,44 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
     }
 
     return (
-        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-28 flex items-center header-glow shadow-2xl">
-            <div className="container mx-auto px-8 flex items-center">
-                {/* Logo a la izquierda */}
+        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-36 flex items-center header-glow shadow-2xl">
+            <div className="container mx-auto px-6 flex items-center justify-between w-full">
+                {/* Logo completamente a la izquierda */}
                 <div className="flex-shrink-0">
                     <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
                         <img 
                             src="/images/logo/logo.png" 
                             alt="Salón del Automóvil" 
-                            className="h-24 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-lg"
+                            className="h-32 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-lg"
                         />
                     </a>
                 </div>
 
-                {/* Texto centrado */}
-                <div className="flex-1 flex justify-center">
+                {/* Texto centrado y destacado */}
+                <div className="flex-1 flex justify-center px-8">
                     <div className="text-center">
-                        <h1 className="text-2xl font-bold text-white tracking-wider">BIENVENIDOS AL SALÓN DEL AUTOMÓVIL</h1>
-                        <p className="text-accent text-sm font-medium tracking-wide">Tu concesionaria de confianza</p>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-wider mb-2 text-shadow-lg">BIENVENIDOS AL SALÓN DEL AUTOMÓVIL</h1>
+                        <p className="text-accent text-lg md:text-xl font-bold tracking-wide">Tu concesionaria de confianza</p>
                     </div>
                 </div>
 
-                {/* Espacio para las secciones de navegación */}
-                <div className="flex-shrink-0 w-0 md:w-auto">
+                {/* Navegación completamente a la derecha y junta */}
+                <div className="flex-shrink-0">
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center space-x-2">
-                    <button onClick={() => handleNavClick('0km')} className="px-6 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                    <nav className="hidden md:flex items-center space-x-1">
+                    <button onClick={() => handleNavClick('0km')} className="px-4 py-2 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-base hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                         <span className="relative z-10">0KM</span>
                     </button>
-                    <button onClick={() => handleNavClick('usados')} className="px-6 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                    <button onClick={() => handleNavClick('usados')} className="px-4 py-2 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-base hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                         <span className="relative z-10">USADOS</span>
                     </button>
                     <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
-                        <span className="px-6 py-3 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-lg hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                        <span className="px-4 py-2 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-base hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                             <span className="relative z-10">Financiación</span>
                         </span>
                     </NavLink>
                     <NavLink href="#footer" onClick={(e) => handleScrollLink(e, 'footer')}>
-                        <span className="px-6 py-3 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-lg hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                        <span className="px-4 py-2 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-base hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                             <span className="relative z-10">Contacto</span>
                         </span>
                     </NavLink>
