@@ -65,7 +65,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6">
+    <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">Filtros</h3>
         <button

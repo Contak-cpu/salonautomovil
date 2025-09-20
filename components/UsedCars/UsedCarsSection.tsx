@@ -219,32 +219,60 @@ const UsedCarsSection: React.FC = () => {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 -mt-28 pt-28">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-16">
-        <div className="container mx-auto px-6">
+      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20 relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-key-delivery.jpg"
+            alt="Entrega de llaves"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/80 to-blue-900/80"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tight leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
               Que tu próximo usado se sienta como cero
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-8">
+            <p className="text-2xl md:text-3xl text-blue-100 mb-12 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
               Asesoría personalizada, garantía extendida y servicio de posventa
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl mb-3">🛡️</div>
-                <h3 className="text-lg font-semibold mb-2">Garantía Extendida</h3>
-                <p className="text-blue-100 text-sm">Hasta 2 años de garantía</p>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
+                <div className="flex items-center justify-center mb-4">
+                  <img 
+                    src="/images/banks/bna-logo.svg" 
+                    alt="Banco Nación Argentina" 
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>Financiación BNA</h3>
+                <p className="text-blue-100 text-sm">Tasas preferenciales y hasta 100% de financiación</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl mb-3">💰</div>
-                <h3 className="text-lg font-semibold mb-2">Financiación 100%</h3>
-                <p className="text-blue-100 text-sm">Hasta el valor total del vehículo</p>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
+                <div className="flex items-center justify-center mb-4">
+                  <img 
+                    src="/images/banks/santander-logo.svg" 
+                    alt="Banco Santander" 
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>Financiación Santander</h3>
+                <p className="text-blue-100 text-sm">Créditos preaprobados y condiciones especiales</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-                <div className="text-3xl mb-3">🚚</div>
-                <h3 className="text-lg font-semibold mb-2">Entrega Rápida</h3>
-                <p className="text-blue-100 text-sm">Entrega en 48 horas</p>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
+                <div className="flex items-center justify-center mb-4">
+                  <img 
+                    src="/images/banks/bancor-logo.svg" 
+                    alt="Banco de Córdoba" 
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>Financiación BANCOR</h3>
+                <p className="text-blue-100 text-sm">Financiación local con beneficios exclusivos</p>
               </div>
             </div>
           </div>
@@ -252,7 +280,7 @@ const UsedCarsSection: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-6 py-8" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <div className="lg:w-1/4">

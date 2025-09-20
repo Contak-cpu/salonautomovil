@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onClearFilters
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-6" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         {/* Search Input */}
         <div className="flex-1">
