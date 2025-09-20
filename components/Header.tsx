@@ -38,8 +38,9 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
 
     return (
         <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-28 flex items-center header-glow shadow-2xl">
-            <div className="container mx-auto px-8 flex justify-between items-center">
-                <div className="flex items-center space-x-4">
+            <div className="container mx-auto px-8 flex items-center">
+                {/* Logo a la izquierda */}
+                <div className="flex-shrink-0">
                     <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
                         <img 
                             src="/images/logo/logo.png" 
@@ -47,14 +48,20 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                             className="h-24 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-lg"
                         />
                     </a>
-                    <div className="hidden lg:block">
-                        <h1 className="text-2xl font-bold text-white tracking-wider">SALÓN DEL AUTOMÓVIL</h1>
+                </div>
+
+                {/* Texto centrado */}
+                <div className="flex-1 flex justify-center">
+                    <div className="text-center">
+                        <h1 className="text-2xl font-bold text-white tracking-wider">BIENVENIDOS AL SALÓN DEL AUTOMÓVIL</h1>
                         <p className="text-accent text-sm font-medium tracking-wide">Tu concesionaria de confianza</p>
                     </div>
                 </div>
 
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center space-x-2">
+                {/* Espacio para las secciones de navegación */}
+                <div className="flex-shrink-0 w-0 md:w-auto">
+                    {/* Desktop Navigation */}
+                    <nav className="hidden md:flex items-center space-x-2">
                     <button onClick={() => handleNavClick('0km')} className="px-6 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                         <span className="relative z-10">0KM</span>
                     </button>
@@ -71,7 +78,8 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                             <span className="relative z-10">Contacto</span>
                         </span>
                     </NavLink>
-                </nav>
+                    </nav>
+                </div>
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden">
