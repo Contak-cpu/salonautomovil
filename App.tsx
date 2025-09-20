@@ -11,12 +11,13 @@ import Testimonials from './components/Testimonials';
 import Farewell from './components/Farewell';
 import NewCarsSection from './components/NewCars/NewCarsSection';
 import UsedCarsSection from './components/UsedCars/UsedCarsSection';
+import GestoriaAutomotor from './components/GestoriaAutomotor';
 import Footer from './components/Footer';
 import PromoPopup from './components/PromoPopup';
 import { VEHICLES_0KM, VEHICLES_USED } from './constants';
 import { usePromoPopup } from './hooks/usePromoPopup';
 
-type View = 'home' | '0km' | '0km-catalogo' | 'usados' | 'usados-catalogo';
+type View = 'home' | '0km' | '0km-catalogo' | 'usados' | 'usados-catalogo' | 'gestoria';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
@@ -29,11 +30,13 @@ const App: React.FC = () => {
   console.log('App: showPopup:', showPopup);
   console.log('App: renegadeVehicle:', renegadeVehicle);
 
-  const handleShowCatalog = (type: '0km' | 'usados') => {
+  const handleShowCatalog = (type: '0km' | 'usados' | 'gestoria') => {
     if (type === 'usados') {
       setCurrentView('usados-catalogo');
     } else if (type === '0km') {
       setCurrentView('0km-catalogo');
+    } else if (type === 'gestoria') {
+      setCurrentView('gestoria');
     } else {
       setCurrentView(type);
     }
@@ -71,6 +74,10 @@ const App: React.FC = () => {
         return (
           <UsedCarsSection />
         );
+      case 'gestoria':
+        return (
+          <GestoriaAutomotor />
+        );
       case 'home':
       default:
         return (
@@ -90,7 +97,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen gradient-bg text-white font-sans">
       <Header onShowCatalog={handleShowCatalog} onGoHome={handleBackToHome} />
-      <Subheader />
+      {currentView === 'home' && <Subheader />}
       <main>
         {renderContent()}
       </main>

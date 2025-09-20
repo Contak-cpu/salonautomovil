@@ -7,14 +7,14 @@ const NavLink: React.FC<{ href: string; children: React.ReactNode; onClick?: (e:
 );
 
 interface HeaderProps {
-    onShowCatalog: (type: '0km' | 'usados') => void;
+    onShowCatalog: (type: '0km' | 'usados' | 'gestoria') => void;
     onGoHome: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const handleNavClick = (type: '0km' | 'usados') => {
+    const handleNavClick = (type: '0km' | 'usados' | 'gestoria') => {
         setIsMenuOpen(false);
         onShowCatalog(type);
     };
@@ -60,6 +60,9 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                     <button onClick={() => handleNavClick('usados')} className="px-8 py-4 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-xl hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                         <span className="relative z-10">USADOS</span>
                     </button>
+                    <button onClick={() => handleNavClick('gestoria')} className="px-8 py-4 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-xl hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                        <span className="relative z-10">GESTORÍA</span>
+                    </button>
                     <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
                         <span className="px-8 py-4 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-xl hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                             <span className="relative z-10">Financiación</span>
@@ -96,6 +99,9 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                                 </button>
                                 <button onClick={() => handleNavClick('usados')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                     <span className="relative z-10">USADOS</span>
+                                </button>
+                                <button onClick={() => handleNavClick('gestoria')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                    <span className="relative z-10">GESTORÍA</span>
                                 </button>
                                 <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
                                     <span className="text-2xl px-10 py-5 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider w-80 hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
