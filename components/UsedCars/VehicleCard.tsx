@@ -100,7 +100,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
                 </span>
               )}
               {car.isInspected && (
-                <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                <span className="bg-gray-800 text-white px-2 py-1 rounded-full text-xs font-semibold">
                   Inspeccionado
                 </span>
               )}
@@ -147,7 +147,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => onShowDetails(car)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+                  className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors duration-200"
                 >
                   Más Información
                 </button>
@@ -212,7 +212,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
             </span>
           )}
           {car.isInspected && (
-            <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+            <span className="bg-gray-800 text-white px-2 py-1 rounded-full text-xs font-semibold">
               Inspeccionado
             </span>
           )}
@@ -256,7 +256,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
         <div className="flex items-center justify-between">
           <button
             onClick={() => onShowDetails(car)}
-            className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
+            className="px-3 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors duration-200"
           >
             Más Información
           </button>
