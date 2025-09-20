@@ -9,6 +9,7 @@ interface VehicleGridProps {
   selectedCars: string[];
   onToggleFavorite: (carId: string) => void;
   onToggleCompare: (carId: string) => void;
+  onShowDetails: (car: UsedCar) => void;
 }
 
 const VehicleGrid: React.FC<VehicleGridProps> = ({
@@ -17,7 +18,8 @@ const VehicleGrid: React.FC<VehicleGridProps> = ({
   favorites,
   selectedCars,
   onToggleFavorite,
-  onToggleCompare
+  onToggleCompare,
+  onShowDetails
 }) => {
   if (cars.length === 0) {
     return (
@@ -48,6 +50,7 @@ const VehicleGrid: React.FC<VehicleGridProps> = ({
           isSelected={selectedCars.includes(car.id)}
           onToggleFavorite={onToggleFavorite}
           onToggleCompare={onToggleCompare}
+          onShowDetails={onShowDetails}
         />
       ))}
     </div>

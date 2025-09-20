@@ -5,6 +5,7 @@ import FilterSidebar from './FilterSidebar';
 import VehicleGrid from './VehicleGrid';
 import SearchBar from './SearchBar';
 import CompareModal from './CompareModal';
+import UsedCarDetailModal from './UsedCarDetailModal';
 
 interface FilterState {
   search: string;
@@ -42,6 +43,8 @@ const UsedCarsSection: React.FC = () => {
   const [selectedCars, setSelectedCars] = useState<string[]>([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [selectedCar, setSelectedCar] = useState<UsedCar | null>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   // Filtrar vehículos
   const filteredCars = useMemo(() => {
@@ -205,6 +208,11 @@ const UsedCarsSection: React.FC = () => {
     );
   };
 
+  const handleShowDetails = (car: UsedCar) => {
+    setSelectedCar(car);
+    setShowDetailModal(true);
+  };
+
   const activeFiltersCount = useMemo(() => {
     let count = 0;
     
@@ -327,6 +335,7 @@ const UsedCarsSection: React.FC = () => {
               selectedCars={selectedCars}
               onToggleFavorite={handleToggleFavorite}
               onToggleCompare={handleToggleCompare}
+              onShowDetails={handleShowDetails}
             />
 
             {/* Compare Button */}
@@ -355,6 +364,16 @@ const UsedCarsSection: React.FC = () => {
           onRemoveCar={(carId) => handleToggleCompare(carId)}
         />
       )}
+
+      {/* Detail Modal */}
+      <UsedCarDetailModal
+        car={selectedCar}
+        isOpen={showDetailModal}
+        onClose={() => {
+          setShowDetailModal(false);
+          setSelectedCar(null);
+        }}
+      />
     </div>
   );
 };

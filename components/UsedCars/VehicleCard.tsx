@@ -8,6 +8,7 @@ interface VehicleCardProps {
   isSelected: boolean;
   onToggleFavorite: (carId: string) => void;
   onToggleCompare: (carId: string) => void;
+  onShowDetails: (car: UsedCar) => void;
 }
 
 const VehicleCard: React.FC<VehicleCardProps> = ({
@@ -16,7 +17,8 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   isFavorite,
   isSelected,
   onToggleFavorite,
-  onToggleCompare
+  onToggleCompare,
+  onShowDetails
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -134,14 +136,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => onToggleCompare(car.id)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                    isSelected
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
+                  onClick={() => onShowDetails(car)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
                 >
-                  {isSelected ? 'Seleccionado' : 'Comparar'}
+                  Más Información
                 </button>
                 <a
                   href={`https://api.whatsapp.com/send?phone=${car.seller.whatsapp}&text=${generateWhatsAppMessage()}`}
@@ -152,9 +150,6 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
                   WhatsApp
                 </a>
               </div>
-              <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                Ver detalles
-              </button>
             </div>
           </div>
         </div>
@@ -242,14 +237,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
 
         <div className="flex items-center justify-between">
           <button
-            onClick={() => onToggleCompare(car.id)}
-            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-              isSelected
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
+            onClick={() => onShowDetails(car)}
+            className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-200"
           >
-            {isSelected ? 'Seleccionado' : 'Comparar'}
+            Más Información
           </button>
           <a
             href={`https://api.whatsapp.com/send?phone=${car.seller.whatsapp}&text=${generateWhatsAppMessage()}`}
