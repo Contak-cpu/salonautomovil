@@ -41,13 +41,14 @@ const VehicleGrid: React.FC<VehicleGridProps> = ({
 
   return (
     <div className={gridClasses}>
-      {cars.map(car => (
+      {cars.map((car, index) => (
         <VehicleCard
           key={car.id}
           car={car}
           viewMode={viewMode}
           isFavorite={favorites.includes(car.id)}
           isSelected={selectedCars.includes(car.id)}
+          isOpportunity={index < 3}
           onToggleFavorite={onToggleFavorite}
           onToggleCompare={onToggleCompare}
           onShowDetails={onShowDetails}
