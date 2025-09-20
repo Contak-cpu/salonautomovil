@@ -6,6 +6,7 @@ import Catalog from './components/Catalog';
 import Services from './components/Services';
 import FinancingBanner from './components/FinancingBanner';
 import Testimonials from './components/Testimonials';
+import Farewell from './components/Farewell';
 import Footer from './components/Footer';
 import PromoPopup from './components/PromoPopup';
 import { VEHICLES_0KM, VEHICLES_USED } from './constants';
@@ -61,6 +62,7 @@ const App: React.FC = () => {
             <Services />
             <FinancingBanner />
             <Testimonials />
+            <Farewell />
           </>
         );
     }
