@@ -12,15 +12,18 @@ import Farewell from './components/Farewell';
 import NewCarsSection from './components/NewCars/NewCarsSection';
 import UsedCarsSection from './components/UsedCars/UsedCarsSection';
 import GestoriaAutomotor from './components/GestoriaAutomotor';
+import VehicleDetailPage from './components/VehicleDetailPage';
 import Footer from './components/Footer';
 import PromoPopup from './components/PromoPopup';
 import { VEHICLES_0KM, VEHICLES_USED } from './constants';
 import { usePromoPopup } from './hooks/usePromoPopup';
 
-type View = 'home' | '0km' | '0km-catalogo' | 'usados' | 'usados-catalogo' | 'gestoria';
+type View = 'home' | '0km' | '0km-catalogo' | 'usados' | 'usados-catalogo' | 'gestoria' | 'vehicle-detail';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
+  const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
+  const [isNewCar, setIsNewCar] = useState<boolean>(false);
   const { showPopup, closePopup } = usePromoPopup(5000); // 5 segundos
   
   // Obtener la Jeep Renegade para la promoción
@@ -45,6 +48,24 @@ const App: React.FC = () => {
 
   const handleBackToHome = () => {
     setCurrentView('home');
+    setSelectedVehicle(null);
+    window.scrollTo(0, 0);
+  };
+
+  const handleShowVehicleDetail = (vehicle: any, isNew: boolean) => {
+    setSelectedVehicle(vehicle);
+    setIsNewCar(isNew);
+    setCurrentView('vehicle-detail');
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToCatalog = () => {
+    if (isNewCar) {
+      setCurrentView('0km-catalogo');
+    } else {
+      setCurrentView('usados-catalogo');
+    }
+    setSelectedVehicle(null);
     window.scrollTo(0, 0);
   };
 
@@ -60,7 +81,7 @@ const App: React.FC = () => {
         );
       case '0km-catalogo':
         return (
-          <NewCarsSection />
+          <NewCarsSection onShowVehicleDetail={handleShowVehicleDetail} />
         );
       case 'usados':
         return (
@@ -72,21 +93,33 @@ const App: React.FC = () => {
         );
       case 'usados-catalogo':
         return (
-          <UsedCarsSection />
+          <UsedCarsSection onShowVehicleDetail={handleShowVehicleDetail} />
         );
       case 'gestoria':
         return (
           <GestoriaAutomotor />
+        );
+      case 'vehicle-detail':
+        return (
+          <VehicleDetailPage 
+            vehicle={selectedVehicle} 
+            isNewCar={isNewCar} 
+            onBack={handleBackToCatalog} 
+          />
         );
       case 'home':
       default:
         return (
           <>
             <Hero onShowCatalog={handleShowCatalog} />
-            <BrandSlider />
+            <div className="hidden md:block">
+              <BrandSlider />
+            </div>
             <Services />
             <FinancingBanner />
-            <MarcasLideres onShowCatalog={handleShowCatalog} />
+            <div className="hidden md:block">
+              <MarcasLideres onShowCatalog={handleShowCatalog} />
+            </div>
             <Testimonials />
             <Farewell />
           </>

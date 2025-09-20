@@ -5,6 +5,7 @@ import FilterSidebar from '../UsedCars/FilterSidebar';
 import VehicleGrid from '../UsedCars/VehicleGrid';
 import SearchBar from '../UsedCars/SearchBar';
 import CompareModal from '../UsedCars/CompareModal';
+import VehicleDetailModal from '../VehicleDetailModal';
 
 // Función para adaptar los datos de 0km a la estructura esperada por los componentes
 const adaptVehicleData = (vehicle: Vehicle) => ({
@@ -51,7 +52,11 @@ interface FilterState {
   viewMode: 'grid' | 'list';
 }
 
-const NewCarsSection: React.FC = () => {
+interface NewCarsSectionProps {
+  onShowVehicleDetail?: (vehicle: any, isNew: boolean) => void;
+}
+
+const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) => {
   // Adaptar los datos de 0km
   const adaptedVehicles = useMemo(() => VEHICLES_0KM.map(adaptVehicleData), []);
 
@@ -74,6 +79,8 @@ const NewCarsSection: React.FC = () => {
   const [selectedCars, setSelectedCars] = useState<string[]>([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   // Obtener marcas únicas de los vehículos 0km
   const brands = useMemo(() => {
@@ -261,6 +268,15 @@ const NewCarsSection: React.FC = () => {
     );
   };
 
+  const handleShowDetails = (vehicle: any) => {
+    if (onShowVehicleDetail) {
+      onShowVehicleDetail(vehicle, true);
+    } else {
+      setSelectedVehicle(vehicle);
+      setShowDetailModal(true);
+    }
+  };
+
   const activeFiltersCount = useMemo(() => {
     let count = 0;
     
@@ -343,7 +359,7 @@ const NewCarsSection: React.FC = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-8" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Sidebar */}
           <div className="lg:w-1/4">
             <FilterSidebar
@@ -383,6 +399,7 @@ const NewCarsSection: React.FC = () => {
               selectedCars={selectedCars}
               onToggleFavorite={handleToggleFavorite}
               onToggleCompare={handleToggleCompare}
+              onShowDetails={handleShowDetails}
             />
 
             {/* Compare Button */}
@@ -411,6 +428,17 @@ const NewCarsSection: React.FC = () => {
           onRemoveCar={(carId) => handleToggleCompare(carId)}
         />
       )}
+
+      {/* Detail Modal */}
+      <VehicleDetailModal
+        vehicle={selectedVehicle}
+        isOpen={showDetailModal}
+        onClose={() => {
+          setShowDetailModal(false);
+          setSelectedVehicle(null);
+        }}
+        isNewCar={true}
+      />
     </div>
   );
 };

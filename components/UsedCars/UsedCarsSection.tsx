@@ -5,7 +5,7 @@ import FilterSidebar from './FilterSidebar';
 import VehicleGrid from './VehicleGrid';
 import SearchBar from './SearchBar';
 import CompareModal from './CompareModal';
-import UsedCarDetailModal from './UsedCarDetailModal';
+import VehicleDetailModal from '../VehicleDetailModal';
 
 interface FilterState {
   search: string;
@@ -23,7 +23,11 @@ interface FilterState {
   viewMode: 'grid' | 'list';
 }
 
-const UsedCarsSection: React.FC = () => {
+interface UsedCarsSectionProps {
+  onShowVehicleDetail?: (vehicle: any, isNew: boolean) => void;
+}
+
+const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }) => {
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     brands: [],
@@ -209,8 +213,12 @@ const UsedCarsSection: React.FC = () => {
   };
 
   const handleShowDetails = (car: UsedCar) => {
-    setSelectedCar(car);
-    setShowDetailModal(true);
+    if (onShowVehicleDetail) {
+      onShowVehicleDetail(car, false);
+    } else {
+      setSelectedCar(car);
+      setShowDetailModal(true);
+    }
   };
 
   const activeFiltersCount = useMemo(() => {
@@ -295,7 +303,7 @@ const UsedCarsSection: React.FC = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-8" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Sidebar */}
           <div className="lg:w-1/4">
             <FilterSidebar
@@ -366,13 +374,14 @@ const UsedCarsSection: React.FC = () => {
       )}
 
       {/* Detail Modal */}
-      <UsedCarDetailModal
-        car={selectedCar}
+      <VehicleDetailModal
+        vehicle={selectedCar}
         isOpen={showDetailModal}
         onClose={() => {
           setShowDetailModal(false);
           setSelectedCar(null);
         }}
+        isNewCar={false}
       />
     </div>
   );

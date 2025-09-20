@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { UsedCar } from '../../constants/usedCarsData';
 
 interface FilterState {
@@ -40,6 +40,8 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   transmissions,
   locations
 }) => {
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
@@ -53,7 +55,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
     const newArray = currentArray.includes(value)
       ? currentArray.filter(item => item !== value)
       : [...currentArray, value];
-    
     onFilterChange({ [key]: newArray });
   };
 
@@ -64,209 +65,224 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
     onFilterChange({ [key]: newRange });
   };
 
-  return (
-    <div className="bg-white rounded-lg shadow-lg p-6 sticky top-6" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">Filtros</h3>
-        <button
-          onClick={onClearFilters}
-          className="text-sm text-gray-900 hover:text-gray-700 font-medium"
-        >
-          Limpiar todo
-        </button>
+  const FilterContent = () => (
+    <div className="space-y-4">
+      {/* Marca */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">Marca</h4>
+        <div className="space-y-1 max-h-32 overflow-y-auto">
+          {brands.map(brand => (
+            <label key={brand} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.brands.includes(brand)}
+                onChange={() => handleArrayFilterChange('brands', brand)}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">{brand}</span>
+            </label>
+          ))}
+        </div>
       </div>
 
-      <div className="space-y-6">
-        {/* Marca */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Marca</h4>
-          <div className="space-y-2 max-h-48 overflow-y-auto">
-            {brands.map(brand => (
-              <label key={brand} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.brands.includes(brand)}
-                  onChange={() => handleArrayFilterChange('brands', brand)}
-                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">{brand}</span>
-              </label>
-            ))}
-          </div>
+      {/* Modelo */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">Modelo</h4>
+        <div className="space-y-1 max-h-32 overflow-y-auto">
+          {availableModels.map(model => (
+            <label key={model} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.models.includes(model)}
+                onChange={() => handleArrayFilterChange('models', model)}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">{model}</span>
+            </label>
+          ))}
         </div>
+      </div>
 
-        {/* Modelo */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Modelo</h4>
-          <div className="space-y-2 max-h-48 overflow-y-auto">
-            {availableModels.map(model => (
-              <label key={model} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.models.includes(model)}
-                  onChange={() => handleArrayFilterChange('models', model)}
-                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">{model}</span>
-              </label>
-            ))}
-          </div>
+      {/* Versión */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">Versión</h4>
+        <div className="space-y-1 max-h-32 overflow-y-auto">
+          {availableVersions.map(version => (
+            <label key={version} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.versions.includes(version)}
+                onChange={() => handleArrayFilterChange('versions', version)}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">{version}</span>
+            </label>
+          ))}
         </div>
+      </div>
 
-        {/* Versión */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Versión</h4>
-          <div className="space-y-2 max-h-48 overflow-y-auto">
-            {availableVersions.map(version => (
-              <label key={version} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.versions.includes(version)}
-                  onChange={() => handleArrayFilterChange('versions', version)}
-                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">{version}</span>
-              </label>
-            ))}
-          </div>
+      {/* Rango de Precio */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">
+          Precio: {formatPrice(filters.priceRange[0])} - {formatPrice(filters.priceRange[1])}
+        </h4>
+        <div className="space-y-2">
+          <input
+            type="range"
+            min="0"
+            max="50000000"
+            step="500000"
+            value={filters.priceRange[0]}
+            onChange={(e) => handleRangeChange('priceRange', 0, parseInt(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+          <input
+            type="range"
+            min="0"
+            max="50000000"
+            step="500000"
+            value={filters.priceRange[1]}
+            onChange={(e) => handleRangeChange('priceRange', 1, parseInt(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
         </div>
+      </div>
 
-        {/* Rango de Precios */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">
-            Precio: {formatPrice(filters.priceRange[0])} - {formatPrice(filters.priceRange[1])}
-          </h4>
-          <div className="space-y-2">
-            <input
-              type="range"
-              min="0"
-              max="50000000"
-              step="500000"
-              value={filters.priceRange[0]}
-              onChange={(e) => handleRangeChange('priceRange', 0, parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-            <input
-              type="range"
-              min="0"
-              max="50000000"
-              step="500000"
-              value={filters.priceRange[1]}
-              onChange={(e) => handleRangeChange('priceRange', 1, parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
+      {/* Año */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">
+          Año: {filters.yearRange[0]} - {filters.yearRange[1]}
+        </h4>
+        <div className="space-y-2">
+          <input
+            type="range"
+            min="2000"
+            max="2024"
+            step="1"
+            value={filters.yearRange[0]}
+            onChange={(e) => handleRangeChange('yearRange', 0, parseInt(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+          <input
+            type="range"
+            min="2000"
+            max="2024"
+            step="1"
+            value={filters.yearRange[1]}
+            onChange={(e) => handleRangeChange('yearRange', 1, parseInt(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
         </div>
+      </div>
 
-        {/* Año */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">
-            Año: {filters.yearRange[0]} - {filters.yearRange[1]}
-          </h4>
-          <div className="space-y-2">
-            <input
-              type="range"
-              min="2015"
-              max="2024"
-              step="1"
-              value={filters.yearRange[0]}
-              onChange={(e) => handleRangeChange('yearRange', 0, parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-            <input
-              type="range"
-              min="2015"
-              max="2024"
-              step="1"
-              value={filters.yearRange[1]}
-              onChange={(e) => handleRangeChange('yearRange', 1, parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
+      {/* Combustible */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">Combustible</h4>
+        <div className="space-y-1">
+          {fuelTypes.map(fuel => (
+            <label key={fuel} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.fuelTypes.includes(fuel)}
+                onChange={() => handleArrayFilterChange('fuelTypes', fuel)}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">{fuel}</span>
+            </label>
+          ))}
         </div>
+      </div>
 
-        {/* Kilómetros */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">
-            Kilómetros: {filters.mileageRange[0].toLocaleString()} - {filters.mileageRange[1].toLocaleString()}
-          </h4>
-          <div className="space-y-2">
-            <input
-              type="range"
-              min="0"
-              max="200000"
-              step="5000"
-              value={filters.mileageRange[0]}
-              onChange={(e) => handleRangeChange('mileageRange', 0, parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-            <input
-              type="range"
-              min="0"
-              max="200000"
-              step="5000"
-              value={filters.mileageRange[1]}
-              onChange={(e) => handleRangeChange('mileageRange', 1, parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
+      {/* Transmisión */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">Transmisión</h4>
+        <div className="space-y-1">
+          {transmissions.map(transmission => (
+            <label key={transmission} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.transmissions.includes(transmission)}
+                onChange={() => handleArrayFilterChange('transmissions', transmission)}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">{transmission}</span>
+            </label>
+          ))}
         </div>
+      </div>
 
-        {/* Tipo de Combustible */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Combustible</h4>
-          <div className="space-y-2">
-            {fuelTypes.map(fuel => (
-              <label key={fuel} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.fuelTypes.includes(fuel)}
-                  onChange={() => handleArrayFilterChange('fuelTypes', fuel)}
-                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">{fuel}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Transmisión */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Transmisión</h4>
-          <div className="space-y-2">
-            {transmissions.map(transmission => (
-              <label key={transmission} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.transmissions.includes(transmission)}
-                  onChange={() => handleArrayFilterChange('transmissions', transmission)}
-                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">{transmission}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* Ubicación */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Ubicación</h4>
-          <div className="space-y-2">
-            {locations.map(location => (
-              <label key={location} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.locations.includes(location)}
-                  onChange={() => handleArrayFilterChange('locations', location)}
-                  className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">{location}</span>
-              </label>
-            ))}
-          </div>
+      {/* Ubicación */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-2">Ubicación</h4>
+        <div className="space-y-1">
+          {locations.map(location => (
+            <label key={location} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.locations.includes(location)}
+                onChange={() => handleArrayFilterChange('locations', location)}
+                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <span className="ml-2 text-sm text-gray-700">{location}</span>
+            </label>
+          ))}
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      {/* Mobile Filter Toggle */}
+      <div className="lg:hidden mb-4">
+        <button
+          onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+          className="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg shadow-sm"
+        >
+          <span className="font-medium text-gray-900">Filtros</span>
+          <svg 
+            className={`w-5 h-5 transform transition-transform ${isMobileFiltersOpen ? 'rotate-180' : ''}`} 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile Filters (Collapsible) */}
+      {isMobileFiltersOpen && (
+        <div className="lg:hidden mb-6 bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base font-semibold text-gray-900">Filtros</h3>
+            <button
+              onClick={onClearFilters}
+              className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Limpiar todo
+            </button>
+          </div>
+          <FilterContent />
+        </div>
+      )}
+
+      {/* Desktop Filters */}
+      <div className="hidden lg:block lg:w-1/4">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-32">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-gray-900">Filtros</h3>
+            <button
+              onClick={onClearFilters}
+              className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Limpiar todo
+            </button>
+          </div>
+          <FilterContent />
+        </div>
+      </div>
+    </>
   );
 };
 
