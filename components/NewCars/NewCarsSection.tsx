@@ -359,9 +359,9 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-8" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Sidebar */}
-          <div className="lg:w-1/4">
+          <div className="lg:w-80 lg:flex-shrink-0">
             <FilterSidebar
               filters={filters}
               onFilterChange={handleFilterChange}
@@ -376,7 +376,7 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
           </div>
 
           {/* Main Content */}
-          <div className="lg:w-3/4">
+          <div className="flex-1 min-w-0">
             {/* Search and Controls */}
             <SearchBar
               search={filters.search}

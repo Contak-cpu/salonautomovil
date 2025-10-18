@@ -405,12 +405,39 @@ export const USED_CARS: UsedCar[] = [
       whatsapp: '5493541579927'
     },
     createdAt: '2024-09-01'
+  },
+  {
+    id: 'used-015',
+    make: 'Ford',
+    model: 'Ka',
+    version: 'Fly Viral 1.0',
+    year: 2012,
+    mileage: 0,
+    price: 9500000,
+    priceCurrency: 'ARS',
+    fuelType: 'Nafta',
+    transmission: 'Manual',
+    engine: '1.0L 4 Cilindros',
+    color: 'Blanco',
+    images: ['/images/used-cars/ka1.png', '/images/used-cars/ka2.png', '/images/used-cars/ka3.png', '/images/used-cars/ka4.png'],
+    features: ['Aire Acondicionado', 'Dirección Asistida', 'ABS', 'Airbags', 'Radio CD'],
+    location: 'Córdoba Capital',
+    isWarranty: true,
+    isInspected: true,
+    isFinancing: true,
+    description: 'Sedán compacto ideal para ciudad, económico y confiable. Único dueño, impecable estado.',
+    seller: {
+      name: 'Salón del Automóvil',
+      phone: '+54 9 3541 579-927',
+      whatsapp: '5493541579927'
+    },
+    createdAt: '2024-12-19'
   }
 ];
 
 export const BRANDS = [
   'Peugeot', 'Fiat', 'Citroën', 'Mercedes-Benz', 'Renault', 
-  'Kia', 'Suzuki', 'Audi', 'Volkswagen'
+  'Kia', 'Suzuki', 'Audi', 'Volkswagen', 'Ford'
 ];
 
 export const FUEL_TYPES = ['Nafta', 'Diésel', 'Híbrido', 'Eléctrico'];

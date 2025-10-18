@@ -34,7 +34,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     models: [],
     versions: [],
     priceRange: [0, 50000000],
-    yearRange: [2015, 2024],
+    yearRange: [2000, 2024],
     mileageRange: [0, 200000],
     fuelTypes: [],
     transmissions: [],
@@ -185,7 +185,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
       models: [],
       versions: [],
       priceRange: [0, 50000000],
-      yearRange: [2015, 2024],
+      yearRange: [2000, 2024],
       mileageRange: [0, 200000],
       fuelTypes: [],
       transmissions: [],
@@ -237,7 +237,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     
     // Contar rangos solo si no están en sus valores por defecto
     if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 50000000) count += 1;
-    if (filters.yearRange[0] !== 2015 || filters.yearRange[1] !== 2024) count += 1;
+    if (filters.yearRange[0] !== 2000 || filters.yearRange[1] !== 2024) count += 1;
     if (filters.mileageRange[0] !== 0 || filters.mileageRange[1] !== 200000) count += 1;
     
     return count;
@@ -303,9 +303,9 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-8" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Sidebar */}
-          <div className="lg:w-1/4">
+          <div className="lg:w-80 lg:flex-shrink-0">
             <FilterSidebar
               filters={filters}
               onFilterChange={handleFilterChange}
@@ -320,7 +320,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
           </div>
 
           {/* Main Content */}
-          <div className="lg:w-3/4">
+          <div className="flex-1 min-w-0">
             {/* Search and Controls */}
             <SearchBar
               search={filters.search}

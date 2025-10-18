@@ -268,7 +268,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
       )}
 
       {/* Desktop Filters */}
-      <div className="hidden lg:block lg:w-1/4">
+      <div className="hidden lg:block w-full">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-32">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900">Filtros</h3>
