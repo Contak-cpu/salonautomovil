@@ -9,6 +9,9 @@ interface CompareModalProps {
 
 const CompareModal: React.FC<CompareModalProps> = ({ cars, onClose, onRemoveCar }) => {
   const formatPrice = (price: number, currency: string) => {
+    if (price === 0) {
+      return 'Consultar';
+    }
     if (currency === 'USD') {
       return new Intl.NumberFormat('es-AR', {
         style: 'currency',

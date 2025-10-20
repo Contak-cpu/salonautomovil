@@ -13,6 +13,9 @@ const UsedCarDetailModal: React.FC<UsedCarDetailModalProps> = ({ car, isOpen, on
   if (!car || !isOpen) return null;
 
   const formatPrice = (price: number, currency: string) => {
+    if (price === 0) {
+      return 'Consultar';
+    }
     if (currency === 'USD') {
       return new Intl.NumberFormat('es-AR', {
         style: 'currency',

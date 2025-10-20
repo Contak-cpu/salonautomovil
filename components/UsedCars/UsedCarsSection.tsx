@@ -33,7 +33,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     brands: [],
     models: [],
     versions: [],
-    priceRange: [0, 50000000],
+    priceRange: [0, 60000000],
     yearRange: [2000, 2024],
     mileageRange: [0, 200000],
     fuelTypes: [],
@@ -184,7 +184,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
       brands: [],
       models: [],
       versions: [],
-      priceRange: [0, 50000000],
+      priceRange: [0, 60000000],
       yearRange: [2000, 2024],
       mileageRange: [0, 200000],
       fuelTypes: [],
@@ -236,7 +236,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     if (filters.search && filters.search.trim() !== '') count += 1;
     
     // Contar rangos solo si no están en sus valores por defecto
-    if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 50000000) count += 1;
+    if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 60000000) count += 1;
     if (filters.yearRange[0] !== 2000 || filters.yearRange[1] !== 2024) count += 1;
     if (filters.mileageRange[0] !== 0 || filters.mileageRange[1] !== 200000) count += 1;
     
@@ -244,7 +244,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
   }, [filters]);
 
   return (
-    <div className="min-h-screen bg-gray-50 -mt-28 pt-28">
+    <div className="min-h-screen bg-gray-50 -mt-32 pt-32">
       {/* Header Section */}
       <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-20 relative overflow-hidden">
         {/* Background Image */}
@@ -262,7 +262,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 tracking-tight leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
               Que tu próximo usado se sienta como cero
             </h1>
-            <p className="text-base md:text-lg text-blue-100 mb-8 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
+            <p className="text-base md:text-lg text-gray-100 mb-8 font-light leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
               Asesoría personalizada, garantía extendida y servicio de posventa
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -274,7 +274,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
                         className="h-12 w-auto"
                       />
                     </div>
-                    <p className="text-blue-100 text-sm text-center">Tasas preferenciales y hasta 100% de financiación</p>
+                    <p className="text-gray-100 text-sm text-center">Tasas preferenciales y hasta 100% de financiación</p>
                   </div>
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
                     <div className="flex items-center justify-center mb-4">
@@ -284,17 +284,17 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
                         className="h-12 w-auto"
                       />
                     </div>
-                    <p className="text-blue-100 text-sm text-center">Créditos preaprobados y condiciones especiales</p>
+                    <p className="text-gray-100 text-sm text-center">Créditos preaprobados y condiciones especiales</p>
                   </div>
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
                     <div className="flex items-center justify-center mb-4">
                       <img 
-                        src="/images/banks/bancor-logo.png" 
-                        alt="Banco de Córdoba" 
+                        src="/images/banks/galicia-logo.png" 
+                        alt="Galicia" 
                         className="h-12 w-auto"
                       />
                     </div>
-                    <p className="text-blue-100 text-sm text-center">Financiación local con beneficios exclusivos</p>
+                    <p className="text-gray-100 text-sm text-center">Financiación local con beneficios exclusivos</p>
                   </div>
             </div>
           </div>
@@ -351,7 +351,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
               <div className="fixed bottom-6 right-6 z-50">
                 <button
                   onClick={() => setShowCompareModal(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+                  className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 3H7v2h2V3zm0 4H7v2h2V7zm0 4H7v2h2v-2zm0 4H7v2h2v-2zm4-12h-2v2h2V3zm0 4h-2v2h2V7zm0 4h-2v2h2v-2zm0 4h-2v2h2v-2z"/>

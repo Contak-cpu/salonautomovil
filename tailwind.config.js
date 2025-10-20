@@ -10,7 +10,7 @@ export default defineConfig({
       colors: {
         'black': '#0D0D0D',
         'gray-dark': '#1A1A1A',
-        'gray-light': '#A9A9A9',
+        'gray-light': '#E5E5E5',
         'white': '#FFFFFF',
         'accent': '#FFFFFF',
       },

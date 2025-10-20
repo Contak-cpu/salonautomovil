@@ -21,6 +21,18 @@ const BrandSlider: React.FC = () => {
     {
       name: 'Volkswagen',
       image: '/images/brands/volkswagen-svgrepo-com.png'
+    },
+    {
+      name: 'Chevrolet',
+      image: '/images/brands/chevrolet-logo.png'
+    },
+    {
+      name: 'BYD',
+      image: '/images/brands/byd-logo.png'
+    },
+    {
+      name: 'BAIC',
+      image: '/images/brands/baic-logo.png'
     }
   ];
 

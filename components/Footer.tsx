@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
     return (
-        <footer id="footer" className="bg-gray-dark text-gray-light pt-16 pb-8">
+        <footer id="footer" className="bg-gray-dark text-white pt-16 pb-8">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                     <div>
@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
                                 className="h-16 w-auto"
                             />
                         </div>
-                        <p className="text-gray-light mb-4">Multimarcas 0 Km. Te acompañamos en cada paso hacia tu próximo vehículo.</p>
+                        <p className="text-white mb-4">Multimarcas 0 Km. Te acompañamos en cada paso hacia tu próximo vehículo.</p>
                         <a href="http://www.salondelautomovil.com.ar" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors flex items-center gap-2">
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
@@ -36,8 +36,8 @@ const Footer: React.FC = () => {
                                 </svg>
                                 <div>
                                     <p className="font-semibold text-white">Dirección:</p>
-                                    <p className="text-gray-light">San Martín Nº 490, CP 5152</p>
-                                    <p className="text-gray-light">Villa Carlos Paz, Córdoba</p>
+                                    <p className="text-white">San Martín Nº 490, CP 5152</p>
+                                    <p className="text-white">Villa Carlos Paz, Córdoba</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
                                 </svg>
                                 <div>
                                     <p className="font-semibold text-white">Teléfono:</p>
-                                    <p className="text-gray-light">03541-423999 / 420953</p>
+                                    <p className="text-white">03541-423999 / 420953</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
                                 </svg>
                                 <div>
                                     <p className="font-semibold text-white">WhatsApp:</p>
-                                    <p className="text-gray-light">3541-579927</p>
+                                    <p className="text-white">3541-579927</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
                                 </svg>
                                 <div>
                                     <p className="font-semibold text-white">Email:</p>
-                                    <p className="text-gray-light">info@salondelautomovil.com.ar</p>
+                                    <p className="text-white">info@salondelautomovil.com.ar</p>
                                 </div>
                             </div>
                         </div>
@@ -81,21 +81,22 @@ const Footer: React.FC = () => {
                                 <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
                                 <div>
                                     <p className="font-semibold text-white">Lunes a Viernes:</p>
-                                    <p className="text-gray-light">9:00 - 19:00 hs</p>
+                                    <p className="text-white">9:30 - 13:00 hs</p>
+                                    <p className="text-white">17:00 - 20:00 hs</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-2 bg-yellow-500 rounded-full flex-shrink-0"></div>
                                 <div>
                                     <p className="font-semibold text-white">Sábados:</p>
-                                    <p className="text-gray-light">9:00 - 13:00 hs</p>
+                                    <p className="text-white">9:30 - 13:00 hs</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></div>
                                 <div>
                                     <p className="font-semibold text-white">Domingos:</p>
-                                    <p className="text-gray-light">Cerrado</p>
+                                    <p className="text-white">Cerrado</p>
                                 </div>
                             </div>
                         </div>
@@ -148,8 +149,8 @@ const Footer: React.FC = () => {
                     ></iframe>
                 </div>
                 <div className="text-center text-sm border-t border-gray-light/20 pt-8">
-                    <p>Copyright 2025 - GRUPO SARKIS S.A.S. - CUIT 30-71889993-8</p>
-                    <p>&copy; Salón del Automóvil. Todos los derechos reservados.</p>
+                    <p className="text-white">Copyright 2025 - GRUPO SARKIS S.A.S. - CUIT 30-71889993-8</p>
+                    <p className="text-white">&copy; Salón del Automóvil. Todos los derechos reservados.</p>
                 </div>
             </div>
         </footer>

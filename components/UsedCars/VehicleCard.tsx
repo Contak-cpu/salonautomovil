@@ -25,6 +25,9 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const formatPrice = (price: number, currency: string) => {
+    if (price === 0) {
+      return 'Consultar';
+    }
     if (currency === 'USD') {
       return new Intl.NumberFormat('es-AR', {
         style: 'currency',

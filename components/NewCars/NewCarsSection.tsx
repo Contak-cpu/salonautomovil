@@ -15,7 +15,7 @@ const adaptVehicleData = (vehicle: Vehicle) => ({
   version: vehicle.model, // Usar model como version para 0km
   year: vehicle.year,
   mileage: vehicle.kms,
-  price: vehicle.price,
+  price: 0, // Usar 0 para indicar "Consultar"
   priceCurrency: vehicle.priceCurrency || 'ARS',
   fuelType: vehicle.fuel === 'Diesel' ? 'Diésel' : vehicle.fuel,
   transmission: vehicle.transmission === 'Automática Steptronic 6ª' ? 'Automática' : vehicle.transmission,
@@ -23,7 +23,7 @@ const adaptVehicleData = (vehicle: Vehicle) => ({
   color: 'Nuevo',
   images: [vehicle.image],
   features: ['Garantía oficial', 'Servicio incluido', 'Financiación disponible'],
-  location: 'Córdoba Capital',
+  location: 'Villa Carlos Paz, Córdoba',
   isWarranty: true,
   isInspected: true,
   isFinancing: true,
@@ -300,7 +300,7 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
   }, [filters]);
 
   return (
-    <div className="min-h-screen bg-gray-50 -mt-28 pt-28">
+    <div className="min-h-screen bg-gray-50 -mt-32 pt-32">
       {/* Header Section */}
       <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-20 relative overflow-hidden">
         {/* Background Image */}
@@ -345,8 +345,8 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300">
                 <div className="flex items-center justify-center mb-4">
                   <img 
-                    src="/images/banks/bancor-logo.png" 
-                    alt="Banco de Córdoba" 
+                    src="/images/banks/galicia-logo.png" 
+                    alt="Galicia" 
                     className="h-12 w-auto"
                   />
                 </div>

@@ -82,6 +82,35 @@ body {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+.button-accent {
+  background: #FFFFFF;
+  color: #0D0D0D;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.button-accent:hover {
+  background: #E5E5E5;
+  color: #0D0D0D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
+.button-outline {
+  background: transparent;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.button-outline:hover {
+  background: #FFFFFF;
+  color: #0D0D0D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+}
+
 .header-glow {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(20px);

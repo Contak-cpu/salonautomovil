@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from './ui/Button';
+import Text from './ui/Text';
 
 const FinancingBanner: React.FC = () => {
   return (
@@ -11,13 +13,15 @@ const FinancingBanner: React.FC = () => {
     >
         <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
         <div className="container mx-auto px-6 text-center relative z-10">
-            <h2 className="text-4xl font-extrabold text-white">ENTREGA TU USADO Y FINANCIA EL RESTO</h2>
-            <p className="mt-4 text-xl text-gray-light max-w-3xl mx-auto">
+            <Text variant="heading1" as="h2">
+                ENTREGA TU USADO Y FINANCIA EL RESTO
+            </Text>
+            <Text variant="bodyLarge" className="mt-4 text-white">
                 Con nuestro programa de canje, valoramos tu vehículo actual al mejor precio del mercado para que puedas acceder a tu próximo auto de la forma más conveniente.
-            </p>
-            <button className="mt-8 bg-[#25D366] text-white font-bold py-3 px-8 rounded-md hover:bg-opacity-90 transition-all duration-300 transform hover:scale-110">
+            </Text>
+            <Button variant="whatsapp" className="mt-8">
                 Consultar con un asesor
-            </button>
+            </Button>
         </div>
     </section>
   );

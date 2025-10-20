@@ -43,6 +43,9 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   const formatPrice = (price: number) => {
+    if (price === 0) {
+      return 'Consultar';
+    }
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
       currency: 'ARS',

@@ -1,4 +1,5 @@
 import React from 'react';
+import Text from './ui/Text';
 
 const ServiceIcon: React.FC<{ path: string }> = ({ path }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -39,7 +40,9 @@ const Services: React.FC = () => {
         >
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
             <div className="container mx-auto px-6 relative z-10">
-                <h2 className="text-2xl font-bold text-center text-white mb-10">¿POR QUÉ ELEGIRNOS?</h2>
+                <Text variant="heading3" as="h2">
+                    ¿POR QUÉ ELEGIRNOS?
+                </Text>
                 
                 {/* Layout en triángulo boca abajo */}
                 <div className="flex flex-col items-center space-y-6">
@@ -50,7 +53,9 @@ const Services: React.FC = () => {
                                 <div className="flex justify-center mb-4">
                                     <ServiceIcon path={service.iconPath} />
                                 </div>
-                                <h3 className="text-sm font-bold text-white leading-tight">{service.title}</h3>
+                                <Text variant="cardDescription">
+                                    {service.title}
+                                </Text>
                             </div>
                         ))}
                     </div>
@@ -62,7 +67,9 @@ const Services: React.FC = () => {
                                 <div className="flex justify-center mb-4">
                                     <ServiceIcon path={service.iconPath} />
                                 </div>
-                                <h3 className="text-sm font-bold text-white leading-tight">{service.title}</h3>
+                                <Text variant="cardDescription">
+                                    {service.title}
+                                </Text>
                             </div>
                         ))}
                     </div>
