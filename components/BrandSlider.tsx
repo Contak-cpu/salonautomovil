@@ -11,10 +11,6 @@ const BrandSlider: React.FC = () => {
       image: '/images/brands/fiat-3-logo-svgrepo-com.png'
     },
     {
-      name: 'Ford',
-      image: '/images/brands/ford-1-logo-svgrepo-com-removebg-preview.png'
-    },
-    {
       name: 'Toyota',
       image: '/images/brands/toyota-1-logo-svgrepo-com-removebg-preview.png'
     },
@@ -27,12 +23,64 @@ const BrandSlider: React.FC = () => {
       image: '/images/brands/chevrolet-logo.png'
     },
     {
-      name: 'BYD',
-      image: '/images/brands/byd-logo.png'
-    },
-    {
       name: 'BAIC',
       image: '/images/brands/baic-logo.png'
+    },
+    {
+      name: 'Logo 1',
+      image: '/images/brands/1.png'
+    },
+    {
+      name: 'Logo 2',
+      image: '/images/brands/2.png'
+    },
+    {
+      name: 'Logo 3',
+      image: '/images/brands/3.png'
+    },
+    {
+      name: 'Logo 4',
+      image: '/images/brands/4.png'
+    },
+    {
+      name: 'Logo 5',
+      image: '/images/brands/5.png'
+    },
+    {
+      name: 'Logo 6',
+      image: '/images/brands/6.png'
+    },
+    {
+      name: 'Logo 7',
+      image: '/images/brands/7.png'
+    },
+    {
+      name: 'Logo 8',
+      image: '/images/brands/8.png'
+    },
+    {
+      name: 'Logo 9',
+      image: '/images/brands/9.png'
+    },
+    {
+      name: 'Logo 10',
+      image: '/images/brands/10.png'
+    },
+    {
+      name: 'Logo 11',
+      image: '/images/brands/11.png'
+    },
+    {
+      name: 'Logo 12',
+      image: '/images/brands/12.png'
+    },
+    {
+      name: 'Logo 13',
+      image: '/images/brands/13.png'
+    },
+    {
+      name: 'BYD',
+      image: '/images/brands/byd-logo.png'
     }
   ];
 
@@ -54,11 +102,11 @@ const BrandSlider: React.FC = () => {
               className="flex-shrink-0 mx-12 flex items-center justify-center group cursor-pointer"
               style={{ width: '200px', height: '120px' }}
             >
-              <div className="w-40 h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <div className={`flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${brand.name === 'Toyota' ? 'w-[560px] h-[320px]' : 'w-48 h-40'}`}>
                 <img
                   src={brand.image}
                   alt={`Logo de ${brand.name}`}
-                  className="max-w-full max-h-full object-contain"
+                  className={`object-contain ${brand.name === 'Toyota' ? 'w-[560px] h-[320px]' : 'w-48 h-40'}`}
                 />
               </div>
             </div>
