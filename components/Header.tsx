@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const NavLink: React.FC<{ href: string; children: React.ReactNode; onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void }> = ({ href, children, onClick }) => (
     <a href={href} onClick={onClick} className="text-white hover:text-accent transition-colors duration-300 font-medium tracking-wide">
@@ -13,6 +13,20 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showLogo, setShowLogo] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Show logo when scrolled past 80% of the WelcomeHero section (100vh)
+            const scrollY = window.scrollY;
+            const welcomeHeroHeight = window.innerHeight; // 100vh
+            const shouldShowLogo = scrollY > welcomeHeroHeight * 0.8;
+            setShowLogo(shouldShowLogo);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleNavClick = (type: '0km' | 'usados' | 'gestoria') => {
         setIsMenuOpen(false);
@@ -37,64 +51,89 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
     }
 
     return (
-        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-40 md:h-28 flex items-center header-glow shadow-2xl">
+        <header className={`bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 flex items-center header-glow shadow-2xl transition-all duration-500 ${showLogo ? 'h-44 md:h-32' : 'h-24 md:h-20'}`}>
             <div className="container mx-auto px-6 w-full">
-                {/* Desktop Navigation con Grid */}
-                <div className="hidden md:grid grid-cols-5 gap-8 items-center">
-                    {/* 0KM */}
-                    <div className="flex justify-center">
-                        <button onClick={() => handleNavClick('0km')} className="px-6 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                {showLogo ? (
+                    /* Desktop Navigation con Grid - With Logo */
+                    <div className="hidden md:grid grid-cols-5 gap-8 items-center">
+                        {/* 0KM */}
+                        <div className="flex justify-center">
+                            <button onClick={() => handleNavClick('0km')} className="px-8 py-4 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-xl hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <span className="relative z-10">0KM</span>
+                            </button>
+                        </div>
+                        
+                        {/* USADOS */}
+                        <div className="flex justify-center">
+                            <button onClick={() => handleNavClick('usados')} className="px-8 py-4 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-xl hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <span className="relative z-10">USADOS</span>
+                            </button>
+                        </div>
+                        
+                        {/* Logo centrado */}
+                        <div className="flex justify-center">
+                            <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
+                                <img 
+                                    src="/images/logo/logo.png" 
+                                    alt="Salón del Automóvil" 
+                                    className="h-36 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-lg"
+                                />
+                            </a>
+                        </div>
+                        
+                        {/* GESTORÍA */}
+                        <div className="flex justify-center">
+                            <button onClick={() => handleNavClick('gestoria')} className="px-8 py-4 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-xl hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <span className="relative z-10">GESTORÍA</span>
+                            </button>
+                        </div>
+                        
+                        {/* Financiación */}
+                        <div className="flex justify-center">
+                            <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
+                                <span className="px-8 py-4 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-xl hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                    <span className="relative z-10">FINANCIACIÓN</span>
+                                </span>
+                            </NavLink>
+                        </div>
+                    </div>
+                ) : (
+                    /* Desktop Navigation - Simplified without Logo */
+                    <div className="hidden md:flex justify-center items-center space-x-12">
+                        <button onClick={() => handleNavClick('0km')} className="px-8 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                             <span className="relative z-10">0KM</span>
                         </button>
-                    </div>
-                    
-                    {/* USADOS */}
-                    <div className="flex justify-center">
-                        <button onClick={() => handleNavClick('usados')} className="px-6 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                        
+                        <button onClick={() => handleNavClick('usados')} className="px-8 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                             <span className="relative z-10">USADOS</span>
                         </button>
-                    </div>
-                    
-                    {/* Logo centrado */}
-                    <div className="flex justify-center">
-                        <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
-                            <img 
-                                src="/images/logo/logo.png" 
-                                alt="Salón del Automóvil" 
-                                className="h-36 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-lg"
-                            />
-                        </a>
-                    </div>
-                    
-                    {/* GESTORÍA */}
-                    <div className="flex justify-center">
-                        <button onClick={() => handleNavClick('gestoria')} className="px-6 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                        
+                        <button onClick={() => handleNavClick('gestoria')} className="px-8 py-3 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider text-lg hover-lift border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                             <span className="relative z-10">GESTORÍA</span>
                         </button>
-                    </div>
-                    
-                    {/* Financiación */}
-                    <div className="flex justify-center">
+                        
                         <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
-                            <span className="px-6 py-3 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-lg hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                            <span className="px-8 py-3 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-lg hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                 <span className="relative z-10">FINANCIACIÓN</span>
                             </span>
                         </NavLink>
                     </div>
-                </div>
+                )}
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden flex items-center justify-between w-full">
                     <div className="flex-1"></div>
-                    <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
-                        <img 
-                            src="/images/logo/logo.png" 
-                            alt="Salón del Automóvil" 
-                            className="h-32 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-2xl"
-                        />
-                    </a>
+                    {showLogo && (
+                        <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
+                            <img 
+                                src="/images/logo/logo.png" 
+                                alt="Salón del Automóvil" 
+                                className="h-16 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-2xl"
+                            />
+                        </a>
+                    )}
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex-1 flex justify-end text-white focus:outline-none p-2 rounded-lg hover:bg-accent/20 transition-all duration-300">
-                        <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <svg className={`${showLogo ? 'h-10 w-10' : 'h-8 w-8'} transition-all duration-300`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             {isMenuOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             ) : (
@@ -107,18 +146,18 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
 
                     {/* Mobile Navigation */}
                     {isMenuOpen && (
-                        <div className="md:hidden absolute top-28 left-0 w-full bg-gradient-to-b from-black via-gray-900 to-black backdrop-blur-xl shadow-2xl border-t-2 border-accent/30">
+                        <div className={`md:hidden absolute left-0 w-full bg-gradient-to-b from-black via-gray-900 to-black backdrop-blur-xl shadow-2xl border-t-2 border-accent/30 transition-all duration-300 ${showLogo ? 'top-44' : 'top-24'}`}>
                             <nav className="flex flex-col items-center space-y-3 py-8">
-                                <button onClick={() => handleNavClick('0km')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <button onClick={() => handleNavClick('0km')} className="text-3xl px-12 py-6 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                     <span className="relative z-10">0KM</span>
                                 </button>
-                                <button onClick={() => handleNavClick('usados')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <button onClick={() => handleNavClick('usados')} className="text-3xl px-12 py-6 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                     <span className="relative z-10">USADOS</span>
                                 </button>
-                                <button onClick={() => handleNavClick('gestoria')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <button onClick={() => handleNavClick('gestoria')} className="text-3xl px-12 py-6 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                     <span className="relative z-10">GESTORÍA</span>
                                 </button>
-                                <button onClick={(e) => handleScrollLink(e, 'financing')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                <button onClick={(e) => handleScrollLink(e, 'financing')} className="text-3xl px-12 py-6 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                     <span className="relative z-10">FINANCIACIÓN</span>
                                 </button>
                             </nav>

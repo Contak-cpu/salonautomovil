@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
+import WelcomeHero from './components/WelcomeHero';
 import Hero from './components/Hero';
 import WhyChooseUs from './components/WhyChooseUs';
 import FinancingBanner from './components/FinancingBanner';
@@ -32,7 +33,10 @@ const App: React.FC = () => {
       
       {currentView === 'home' && (
         <>
-          <Hero onShowCatalog={handleShowCatalog} />
+          <WelcomeHero onShowCatalog={handleShowCatalog} />
+          <div id="hero-section" style={{marginTop: '0'}}>
+            <Hero onShowCatalog={handleShowCatalog} />
+          </div>
           <VehicleSlider onShowCatalog={handleShowCatalog} />
           <BrandSlider />
           <WhyChooseUs />
