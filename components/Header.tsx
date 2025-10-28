@@ -77,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                     <div className="flex justify-center">
                         <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
                             <span className="px-6 py-3 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider text-lg hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
-                                <span className="relative z-10">Financiación</span>
+                                <span className="relative z-10">FINANCIACIÓN</span>
                             </span>
                         </NavLink>
                     </div>
