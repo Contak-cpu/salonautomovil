@@ -69,7 +69,20 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onViewDetails }) => 
     <div className="card-container rounded-enhanced overflow-hidden hover-lift group relative flex flex-col md:flex-row vehicle-card">
       {/* Imagen - Ahora más flexible */}
       <div className="relative md:w-96 w-full md:h-auto h-64 flex-shrink-0 card-image">
-        <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src={vehicle.image} alt={`${vehicle.make} ${vehicle.model}`} loading="lazy" />
+        <img 
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+          src={vehicle.image} 
+          alt={`${vehicle.make} ${vehicle.model}`} 
+          loading="lazy"
+          onError={(e) => {
+            console.error('Error loading image:', vehicle.image);
+            e.currentTarget.style.backgroundColor = '#f3f4f6';
+            e.currentTarget.style.display = 'flex';
+            e.currentTarget.style.alignItems = 'center';
+            e.currentTarget.style.justifyContent = 'center';
+            e.currentTarget.innerHTML = '<span style="color: #6b7280; font-size: 0.875rem;">Imagen no disponible</span>';
+          }}
+        />
         
         {/* Badges superpuestos */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
