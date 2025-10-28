@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
     }
 
     return (
-        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-28 flex items-center header-glow shadow-2xl">
+        <header className="bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 h-40 md:h-28 flex items-center header-glow shadow-2xl">
             <div className="container mx-auto px-6 w-full">
                 {/* Desktop Navigation con Grid */}
                 <div className="hidden md:grid grid-cols-5 gap-8 items-center">
@@ -84,8 +84,16 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <div className="md:hidden">
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none p-2 rounded-lg hover:bg-accent/20 transition-all duration-300">
+                <div className="md:hidden flex items-center justify-between w-full">
+                    <div className="flex-1"></div>
+                    <a href="#" onClick={handleHomeClick} className="flex items-center hover-lift group">
+                        <img 
+                            src="/images/logo/logo.png" 
+                            alt="Salón del Automóvil" 
+                            className="h-32 w-auto group-hover:scale-110 transition-all duration-500 drop-shadow-2xl"
+                        />
+                    </a>
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex-1 flex justify-end text-white focus:outline-none p-2 rounded-lg hover:bg-accent/20 transition-all duration-300">
                         <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             {isMenuOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -110,11 +118,9 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
                                 <button onClick={() => handleNavClick('gestoria')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
                                     <span className="relative z-10">GESTORÍA</span>
                                 </button>
-                                <NavLink href="#financing" onClick={(e) => handleScrollLink(e, 'financing')}>
-                                    <span className="text-2xl px-10 py-5 rounded-enhanced hover:bg-accent/10 transition-all duration-300 inline-block font-bold tracking-wider w-80 hover:text-accent border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
-                                        <span className="relative z-10">Financiación</span>
-                                    </span>
-                                </NavLink>
+                                <button onClick={(e) => handleScrollLink(e, 'financing')} className="text-2xl px-10 py-5 rounded-enhanced text-white hover:text-accent hover:bg-accent/10 transition-all duration-300 font-bold tracking-wider w-80 border border-transparent hover:border-accent/30 shadow-lg hover:shadow-accent/20">
+                                    <span className="relative z-10">FINANCIACIÓN</span>
+                                </button>
                             </nav>
                         </div>
                     )}

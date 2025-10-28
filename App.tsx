@@ -7,6 +7,7 @@ import VehicleSlider from './components/VehicleSlider';
 import BrandSlider from './components/BrandSlider';
 import NewCarsSection from './components/NewCars/NewCarsSection';
 import UsedCarsSection from './components/UsedCars/UsedCarsSection';
+import GestoriaAutomotor from './components/GestoriaAutomotor';
 import Footer from './components/Footer';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 // import ConstructionPage from './components/ConstructionPage';
@@ -48,24 +49,7 @@ const App: React.FC = () => {
       )}
       
       {currentView === 'gestoria' && (
-        <div className="pt-32">
-          <div className="container mx-auto px-6 py-8">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-white mb-4">
-                Gestoría Automotor
-              </h1>
-              <p className="text-gray-300 mb-8">
-                Próximamente disponible - Estamos trabajando en esta sección
-              </p>
-              <button 
-                onClick={handleGoHome}
-                className="bg-accent text-white font-bold py-3 px-8 rounded-md hover:bg-opacity-90 transition-all duration-300"
-              >
-                Volver al Inicio
-              </button>
-            </div>
-          </div>
-        </div>
+        <GestoriaAutomotor />
       )}
       
       <Footer />

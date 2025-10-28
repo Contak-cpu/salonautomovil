@@ -15,7 +15,7 @@ const adaptVehicleData = (vehicle: Vehicle) => ({
   version: vehicle.model, // Usar model como version para 0km
   year: vehicle.year,
   mileage: vehicle.kms,
-  price: 0, // Usar 0 para indicar "Consultar"
+  price: vehicle.price,
   priceCurrency: vehicle.priceCurrency || 'ARS',
   fuelType: vehicle.fuel === 'Diesel' ? 'Diésel' : vehicle.fuel,
   transmission: vehicle.transmission === 'Automática Steptronic 6ª' ? 'Automática' : vehicle.transmission,

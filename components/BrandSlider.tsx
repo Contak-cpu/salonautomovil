@@ -99,14 +99,14 @@ const BrandSlider: React.FC = () => {
           {duplicatedBrands.map((brand, index) => (
             <div
               key={`${brand.name}-${index}`}
-              className="flex-shrink-0 mx-12 flex items-center justify-center group cursor-pointer"
+              className="flex-shrink-0 mx-3 md:mx-8 lg:mx-12 flex items-center justify-center group cursor-pointer"
               style={{ width: '200px', height: '120px' }}
             >
-              <div className={`flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${brand.name === 'Toyota' ? 'w-[560px] h-[320px]' : 'w-48 h-40'}`}>
+              <div className={`flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${brand.name === 'Toyota' ? 'w-[200px] h-[120px] md:w-[300px] md:h-[180px] lg:w-[560px] lg:h-[320px]' : 'w-24 h-20 md:w-32 md:h-28 lg:w-48 lg:h-40'}`}>
                 <img
                   src={brand.image}
                   alt={`Logo de ${brand.name}`}
-                  className={`object-contain ${brand.name === 'Toyota' ? 'w-[560px] h-[320px]' : 'w-48 h-40'}`}
+                  className={`object-contain ${brand.name === 'Toyota' ? 'w-[200px] h-[120px] md:w-[300px] md:h-[180px] lg:w-[560px] lg:h-[320px]' : 'w-24 h-20 md:w-32 md:h-28 lg:w-48 lg:h-40'}`}
                 />
               </div>
             </div>
