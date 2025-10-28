@@ -44,7 +44,7 @@ const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
           as="h1" 
           className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-4 text-white font-bold leading-tight fade-in-up"
         >
-          ¡Bienvenidos al Salón del Automóvil!
+          Bienvenido a tu próximo auto
         </Text>
         
         {/* Persuasive Copy */}
