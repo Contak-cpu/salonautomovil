@@ -9,24 +9,56 @@ const NavLink: React.FC<{ href: string; children: React.ReactNode; onClick?: (e:
 interface HeaderProps {
     onShowCatalog: (type: '0km' | 'usados' | 'gestoria') => void;
     onGoHome: () => void;
+    currentView?: 'home' | '0km' | 'usados' | 'gestoria';
 }
 
-const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
+const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome, currentView = 'home' }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showLogo, setShowLogo] = useState(false);
+    const [isFixed, setIsFixed] = useState(false);
 
     useEffect(() => {
+        // En secciones secundarias, siempre mostrar el logo y estar fixed
+        if (currentView !== 'home') {
+            setShowLogo(true);
+            setIsFixed(true);
+            return;
+        }
+
         const handleScroll = () => {
-            // Show logo when scrolled past 80% of the WelcomeHero section (100vh)
             const scrollY = window.scrollY;
             const welcomeHeroHeight = window.innerHeight; // 100vh
-            const shouldShowLogo = scrollY > welcomeHeroHeight * 0.8;
-            setShowLogo(shouldShowLogo);
+            
+            // Buscar la sección Hero (segunda sección - banner de 0km y usados)
+            const heroSection = document.getElementById('hero-section');
+            
+            if (heroSection) {
+                const heroSectionTop = heroSection.getBoundingClientRect().top + scrollY;
+                const heroSectionVisible = heroSection.getBoundingClientRect().top < window.innerHeight;
+                
+                // Cuando se visualiza la sección Hero, fijar el header y mostrar logo
+                if (heroSectionVisible || scrollY >= heroSectionTop - window.innerHeight) {
+                    setIsFixed(true);
+                    setShowLogo(true);
+                } else {
+                    // Antes de la sección Hero, header sticky y sin logo
+                    setIsFixed(false);
+                    setShowLogo(false);
+                }
+            } else {
+                // Fallback: si no encuentra la sección, usar lógica anterior
+                const shouldShowLogo = scrollY > welcomeHeroHeight * 0.3;
+                setShowLogo(shouldShowLogo);
+                setIsFixed(shouldShowLogo);
+            }
         };
+
+        // Verificar estado inicial
+        handleScroll();
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [currentView]);
 
     const handleNavClick = (type: '0km' | 'usados' | 'gestoria') => {
         setIsMenuOpen(false);
@@ -46,12 +78,26 @@ const Header: React.FC<HeaderProps> = ({ onShowCatalog, onGoHome }) => {
         onGoHome();
         // Use timeout to allow React to re-render the home page components
         setTimeout(() => {
-            document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+            const element = document.getElementById(targetId);
+            if (element) {
+                const headerHeight = 80; // Altura aproximada del header
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 150);
     }
 
+    // Determinar la posición del header
+    // En home: fixed solo cuando se visualiza la sección Hero, sticky antes
+    // En otras secciones: siempre fixed
+    const positionClass = (currentView === 'home' && !isFixed) ? 'sticky' : 'fixed';
+    
     return (
-        <header className={`bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl sticky top-0 z-50 flex items-center header-glow shadow-2xl transition-all duration-500 ${showLogo ? 'h-44 md:h-32' : 'h-24 md:h-20'}`}>
+        <header className={`bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl ${positionClass} top-0 z-50 flex items-center header-glow shadow-2xl transition-all duration-500 ${showLogo ? 'h-44 md:h-32' : 'h-24 md:h-20'} w-full`}>
             <div className="container mx-auto px-6 w-full">
                 {showLogo ? (
                     /* Desktop Navigation con Grid - With Logo */

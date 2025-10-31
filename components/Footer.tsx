@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
                             <img 
                                 src="/images/logo/logo.png" 
                                 alt="Salón del Automóvil" 
-                                className="h-64 md:h-80 lg:h-96 w-auto mx-auto"
+                                className="max-h-44 md:max-h-96 lg:max-h-[32rem] w-auto h-auto object-contain mx-auto"
                             />
                         </div>
                     </div>

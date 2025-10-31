@@ -84,8 +84,8 @@ const BrandSlider: React.FC = () => {
     }
   ];
 
-  // Duplicamos el array para crear el efecto de loop infinito
-  const duplicatedBrands = [...brands, ...brands];
+  // Triplicamos el array para crear un loop infinito continuo sin cortes
+  const duplicatedBrands = [...brands, ...brands, ...brands];
 
   return (
     <div className="relative py-12 bg-gray-dark overflow-hidden">
@@ -95,7 +95,7 @@ const BrandSlider: React.FC = () => {
       
       {/* Slider container */}
       <div className="relative">
-        <div className="flex animate-scroll">
+        <div className="flex animate-scroll-infinite" style={{ width: 'fit-content' }}>
           {duplicatedBrands.map((brand, index) => (
             <div
               key={`${brand.name}-${index}`}

@@ -235,7 +235,13 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 max="50000000"
                 step="500000"
                 value={filters.priceRange[0]}
+                onInput={(e) => handleRangeChange('priceRange', 0, parseInt((e.target as HTMLInputElement).value))}
                 onChange={(e) => handleRangeChange('priceRange', 0, parseInt(e.target.value))}
+                onMouseMove={(e) => {
+                  if (e.buttons === 1) {
+                    handleRangeChange('priceRange', 0, parseInt((e.target as HTMLInputElement).value));
+                  }
+                }}
                 className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider-thumb"
               />
             </div>
@@ -247,7 +253,13 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 max="50000000"
                 step="500000"
                 value={filters.priceRange[1]}
+                onInput={(e) => handleRangeChange('priceRange', 1, parseInt((e.target as HTMLInputElement).value))}
                 onChange={(e) => handleRangeChange('priceRange', 1, parseInt(e.target.value))}
+                onMouseMove={(e) => {
+                  if (e.buttons === 1) {
+                    handleRangeChange('priceRange', 1, parseInt((e.target as HTMLInputElement).value));
+                  }
+                }}
                 className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider-thumb"
               />
             </div>

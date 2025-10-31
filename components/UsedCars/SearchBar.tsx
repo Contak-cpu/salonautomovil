@@ -11,6 +11,9 @@ interface SearchBarProps {
   resultsCount: number;
   activeFiltersCount: number;
   onClearFilters: () => void;
+  showOnlyFavorites?: boolean;
+  onToggleFavorites?: (showOnly: boolean) => void;
+  favoritesCount?: number;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -23,7 +26,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onViewModeChange,
   resultsCount,
   activeFiltersCount,
-  onClearFilters
+  onClearFilters,
+  showOnlyFavorites = false,
+  onToggleFavorites,
+  favoritesCount = 0
 }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
@@ -47,10 +53,32 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </div>
 
         {/* Results Count and Active Filters */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-wrap">
           <div className="text-sm text-gray-600">
             <span className="font-semibold">{resultsCount}</span> vehículos encontrados
           </div>
+          
+          {/* Favorites Toggle */}
+          {onToggleFavorites && favoritesCount > 0 && (
+            <button
+              onClick={() => onToggleFavorites(!showOnlyFavorites)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 text-sm ${
+                showOnlyFavorites
+                  ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <svg 
+                className={`w-4 h-4 ${showOnlyFavorites ? 'fill-current' : ''}`} 
+                fill={showOnlyFavorites ? 'currentColor' : 'none'}
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              {showOnlyFavorites ? `Mostrando favoritos (${favoritesCount})` : `Favoritos (${favoritesCount})`}
+            </button>
+          )}
           
           {activeFiltersCount > 0 && (
             <button

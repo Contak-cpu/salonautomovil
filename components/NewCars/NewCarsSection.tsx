@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { VEHICLES_0KM } from '../../constants';
 import type { Vehicle } from '../../types';
+import { convertToARS } from '../../utils/currency';
+import { separateModelAndVersion } from '../../utils/modelVersion';
 import FilterSidebar from '../UsedCars/FilterSidebar';
 import VehicleGrid from '../UsedCars/VehicleGrid';
 import SearchBar from '../UsedCars/SearchBar';
@@ -8,33 +10,37 @@ import CompareModal from '../UsedCars/CompareModal';
 import VehicleDetailModal from '../VehicleDetailModal';
 
 // Función para adaptar los datos de 0km a la estructura esperada por los componentes
-const adaptVehicleData = (vehicle: Vehicle) => ({
-  id: vehicle.id.toString(),
-  make: vehicle.make,
-  model: vehicle.model,
-  version: vehicle.model, // Usar model como version para 0km
-  year: vehicle.year,
-  mileage: vehicle.kms,
-  price: vehicle.price,
-  priceCurrency: vehicle.priceCurrency || 'ARS',
-  fuelType: vehicle.fuel === 'Diesel' ? 'Diésel' : vehicle.fuel,
-  transmission: vehicle.transmission === 'Automática Steptronic 6ª' ? 'Automática' : vehicle.transmission,
-  engine: `${vehicle.fuel} ${vehicle.transmission}`,
-  color: 'Nuevo',
-  images: [vehicle.image],
-  features: ['Garantía oficial', 'Servicio incluido', 'Financiación disponible'],
-  location: 'Villa Carlos Paz, Córdoba',
-  isWarranty: true,
-  isInspected: true,
-  isFinancing: true,
-  description: vehicle.description || '',
-  seller: {
-    name: 'Salón del Automóvil',
-    phone: '+54 9 3541 579-927',
-    whatsapp: '5493541579927'
-  },
-  createdAt: new Date().toISOString().split('T')[0]
-});
+const adaptVehicleData = (vehicle: Vehicle) => {
+  const { model, version } = separateModelAndVersion(vehicle.model);
+  return {
+    id: vehicle.id.toString(),
+    make: vehicle.make,
+    model: model,
+    version: version || model, // Si no hay versión, usar el modelo
+    fullModel: vehicle.model, // Guardar el modelo completo
+    year: vehicle.year,
+    mileage: vehicle.kms,
+    price: vehicle.price,
+    priceCurrency: vehicle.priceCurrency || 'ARS',
+    fuelType: vehicle.fuel === 'Diesel' ? 'Diésel' : vehicle.fuel,
+    transmission: vehicle.transmission === 'Automática Steptronic 6ª' ? 'Automática' : vehicle.transmission,
+    engine: `${vehicle.fuel} ${vehicle.transmission}`,
+    color: 'Nuevo',
+    images: [vehicle.image],
+    features: ['Garantía oficial', 'Servicio incluido', 'Financiación disponible'],
+    location: 'Villa Carlos Paz, Córdoba',
+    isWarranty: true,
+    isInspected: true,
+    isFinancing: true,
+    description: vehicle.description || '',
+    seller: {
+      name: 'Salón del Automóvil',
+      phone: '+54 9 3541 579-927',
+      whatsapp: '5493541579927'
+    },
+    createdAt: new Date().toISOString().split('T')[0]
+  };
+};
 
 interface FilterState {
   search: string;
@@ -79,8 +85,22 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
   const [selectedCars, setSelectedCars] = useState<string[]>([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<any>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+
+  // Cargar favoritos desde localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('favorites_0km');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
+
+  // Guardar favoritos en localStorage
+  useEffect(() => {
+    localStorage.setItem('favorites_0km', JSON.stringify(favorites));
+  }, [favorites]);
 
   // Obtener marcas únicas de los vehículos 0km
   const brands = useMemo(() => {
@@ -109,6 +129,11 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
   // Filtrar vehículos
   const filteredCars = useMemo(() => {
     let filtered = adaptedVehicles.filter(car => {
+      // Filtro de favoritos
+      if (showOnlyFavorites && !favorites.includes(car.id)) {
+        return false;
+      }
+
       // Búsqueda por texto
       if (filters.search) {
         const searchTerm = filters.search.toLowerCase();
@@ -131,8 +156,9 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
         return false;
       }
 
-      // Filtro por rango de precios
-      if (car.price < filters.priceRange[0] || car.price > filters.priceRange[1]) {
+      // Filtro por rango de precios - convertir USD a ARS para comparación
+      const carPriceARS = convertToARS(car.price, car.priceCurrency);
+      if (carPriceARS < filters.priceRange[0] || carPriceARS > filters.priceRange[1]) {
         return false;
       }
 
@@ -171,8 +197,9 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
 
       switch (filters.sortBy) {
         case 'price':
-          aValue = a.price;
-          bValue = b.price;
+          // Convertir a ARS para comparación correcta
+          aValue = convertToARS(a.price, a.priceCurrency);
+          bValue = convertToARS(b.price, b.priceCurrency);
           break;
         case 'year':
           aValue = a.year;
@@ -199,7 +226,7 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
     });
 
     return filtered;
-  }, [filters]);
+  }, [filters, favorites, showOnlyFavorites, adaptedVehicles]);
 
   // Obtener modelos únicos por marca seleccionada
   const availableModels = useMemo(() => {
@@ -389,6 +416,9 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
               resultsCount={filteredCars.length}
               activeFiltersCount={activeFiltersCount}
               onClearFilters={handleClearFilters}
+              showOnlyFavorites={showOnlyFavorites}
+              onToggleFavorites={setShowOnlyFavorites}
+              favoritesCount={favorites.length}
             />
 
             {/* Vehicle Grid */}

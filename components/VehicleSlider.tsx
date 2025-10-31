@@ -100,13 +100,14 @@ const VehicleSlider: React.FC<VehicleSliderProps> = ({ onShowCatalog }) => {
                         >
                           Ver Detalles
                         </Button>
-                        <Button 
-                          variant="whatsapp"
-                          size="sm"
-                          className="flex-1 text-xs"
+                        <a
+                          href={`https://api.whatsapp.com/send?phone=5493541579927&text=${encodeURIComponent(`Hola! Me interesa el ${vehicle.make} ${vehicle.model} ${vehicle.year}. ¿Podrías darme más información?`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 text-xs bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 text-center"
                         >
                           WhatsApp
-                        </Button>
+                        </a>
                       </div>
                     </div>
                   </div>

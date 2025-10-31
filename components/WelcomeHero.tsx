@@ -8,15 +8,11 @@ interface WelcomeHeroProps {
 
 const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
   const handleDiscoverClick = () => {
-    // Scroll to the next section (Hero section)
-    const heroSection = document.getElementById('hero-section');
-    if (heroSection) {
-      heroSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    onShowCatalog('0km');
   };
 
   return (
-    <section className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800" style={{height: '100vh', minHeight: '100vh', maxHeight: '100vh'}}>
+    <section className="relative flex items-start justify-start overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-12 md:pt-16 lg:pt-20" style={{height: '100vh', minHeight: '100vh', maxHeight: '100vh'}}>
       {/* Background with overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
@@ -28,13 +24,13 @@ const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto" style={{paddingTop: '1.5rem'}}>
+      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto pt-4 md:pt-6">
         {/* Logo */}
-        <div className="mb-8 flex justify-center">
+        <div className="mb-3 md:mb-4 flex justify-center">
           <img 
             src="/images/logo/logo.png" 
             alt="Salón del Automóvil" 
-            className="h-48 md:h-64 lg:h-80 xl:h-96 w-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+            className="h-32 md:h-48 lg:h-64 xl:h-72 w-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
           />
         </div>
         
@@ -42,13 +38,13 @@ const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
         <Text 
           variant="heading1" 
           as="h1" 
-          className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-4 text-white font-bold leading-tight fade-in-up"
+          className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-3 text-white font-bold leading-tight fade-in-up"
         >
           Bienvenido a tu próximo auto
         </Text>
         
         {/* Persuasive Copy */}
-        <div className="mb-8 max-w-3xl mx-auto">
+        <div className="mb-4 max-w-3xl mx-auto">
           <Text 
             variant="bodyLarge" 
             className="text-sm md:text-base lg:text-lg text-gray-100 leading-relaxed font-light"
@@ -64,16 +60,10 @@ const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
             onClick={handleDiscoverClick}
             className="text-lg px-10 py-4 rounded-2xl shadow-2xl hover:shadow-accent/30 transform hover:scale-105 transition-all duration-300 font-bold tracking-wide"
           >
-            🚗 Descubrí nuestra historia y stock
+            🚗 Adquirí tu nuevo auto
           </Button>
         </div>
         
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-5 h-8 border-2 border-white rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-white rounded-full mt-1 animate-pulse"></div>
-          </div>
-        </div>
       </div>
     </section>
   );

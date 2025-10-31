@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { USED_CARS, BRANDS, FUEL_TYPES, TRANSMISSIONS, LOCATIONS } from '../../constants/usedCarsData';
 import type { UsedCar } from '../../constants/usedCarsData';
+import { convertToARS } from '../../utils/currency';
 import FilterSidebar from './FilterSidebar';
 import VehicleGrid from './VehicleGrid';
 import SearchBar from './SearchBar';
@@ -47,12 +48,31 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
   const [selectedCars, setSelectedCars] = useState<string[]>([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   const [selectedCar, setSelectedCar] = useState<UsedCar | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
+
+  // Cargar favoritos desde localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('favorites_usados');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
+
+  // Guardar favoritos en localStorage
+  useEffect(() => {
+    localStorage.setItem('favorites_usados', JSON.stringify(favorites));
+  }, [favorites]);
 
   // Filtrar vehículos
   const filteredCars = useMemo(() => {
     let filtered = USED_CARS.filter(car => {
+      // Filtro de favoritos
+      if (showOnlyFavorites && !favorites.includes(car.id)) {
+        return false;
+      }
+
       // Búsqueda por texto
       if (filters.search) {
         const searchTerm = filters.search.toLowerCase();
@@ -75,8 +95,9 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
         return false;
       }
 
-      // Filtro por rango de precios
-      if (car.price < filters.priceRange[0] || car.price > filters.priceRange[1]) {
+      // Filtro por rango de precios - convertir USD a ARS para comparación
+      const carPriceARS = convertToARS(car.price, car.priceCurrency);
+      if (carPriceARS < filters.priceRange[0] || carPriceARS > filters.priceRange[1]) {
         return false;
       }
 
@@ -115,8 +136,9 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
 
       switch (filters.sortBy) {
         case 'price':
-          aValue = a.price;
-          bValue = b.price;
+          // Convertir a ARS para comparación correcta
+          aValue = convertToARS(a.price, a.priceCurrency);
+          bValue = convertToARS(b.price, b.priceCurrency);
           break;
         case 'year':
           aValue = a.year;
@@ -143,7 +165,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     });
 
     return filtered;
-  }, [filters]);
+  }, [filters, favorites, showOnlyFavorites]);
 
   // Obtener modelos únicos por marca seleccionada
   const availableModels = useMemo(() => {
@@ -333,6 +355,9 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
               resultsCount={filteredCars.length}
               activeFiltersCount={activeFiltersCount}
               onClearFilters={handleClearFilters}
+              showOnlyFavorites={showOnlyFavorites}
+              onToggleFavorites={setShowOnlyFavorites}
+              favoritesCount={favorites.length}
             />
 
             {/* Vehicle Grid */}

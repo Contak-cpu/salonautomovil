@@ -44,6 +44,9 @@ const VehicleDetailModal: React.FC<VehicleDetailModalProps> = ({
   isNewCar = false 
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   if (!vehicle || !isOpen) return null;
 
@@ -74,6 +77,35 @@ const VehicleDetailModal: React.FC<VehicleDetailModalProps> = ({
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + vehicle.images.length) % vehicle.images.length);
+  };
+
+  // Swipe handlers
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe && vehicle.images.length > 1) {
+      nextImage();
+    }
+    if (isRightSwipe && vehicle.images.length > 1) {
+      prevImage();
+    }
+  };
+
+  const handleImageDoubleClick = () => {
+    setIsImageZoomed(true);
   };
 
   const getFuelIcon = (fuel: string) => {
@@ -157,11 +189,17 @@ const VehicleDetailModal: React.FC<VehicleDetailModalProps> = ({
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Image Gallery */}
               <div className="space-y-4">
-                <div className="relative">
+                <div 
+                  className="relative"
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                >
                   <img
                     src={vehicle.images[currentImageIndex] || '/images/placeholder-car.jpg'}
                     alt={`${vehicle.make} ${vehicle.model}`}
-                    className="w-full h-64 object-cover rounded-xl shadow-lg"
+                    className="w-full h-64 object-cover rounded-xl shadow-lg cursor-pointer"
+                    onDoubleClick={handleImageDoubleClick}
                   />
                   {vehicle.images.length > 1 && (
                     <>
@@ -274,6 +312,55 @@ const VehicleDetailModal: React.FC<VehicleDetailModalProps> = ({
 
         </div>
       </div>
+
+      {/* Image Zoom Modal */}
+      {isImageZoomed && (
+        <div 
+          className="fixed inset-0 z-[60] bg-black bg-opacity-95 flex items-center justify-center p-4"
+          onClick={() => setIsImageZoomed(false)}
+        >
+          <button
+            onClick={() => setIsImageZoomed(false)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 bg-black/50 rounded-full"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <img
+            src={vehicle.images[currentImageIndex] || '/images/placeholder-car.jpg'}
+            alt={`${vehicle.make} ${vehicle.model}`}
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+          {vehicle.images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevImage();
+                }}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 text-white p-3 rounded-full hover:bg-white/30 transition-all"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextImage();
+                }}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 text-white p-3 rounded-full hover:bg-white/30 transition-all"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

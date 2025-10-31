@@ -17,7 +17,7 @@ const FinancingBanner: React.FC = () => {
                 ENTREGA TU USADO Y FINANCIA EL RESTO
             </Text>
             <Text variant="bodyLarge" className="mt-4 text-white">
-                Con nuestro programa de canje, valoramos tu vehículo actual al mejor precio del mercado para que puedas acceder a tu próximo auto de la forma más conveniente.
+                Con nuestro programa de canje, cotizamos tu vehículo actual al mejor precio del mercado para que puedas acceder a tu próximo auto de la forma más conveniente.
             </Text>
             <Button variant="whatsapp" className="mt-8">
                 Consultar con un asesor

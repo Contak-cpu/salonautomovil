@@ -21,6 +21,15 @@ const GestoriaAutomotor: React.FC = () => {
       )
     },
     {
+      title: "Transferencias y Motos",
+      description: "Transferencias, altas, bajas y duplicados para motos y motovehículos",
+      icon: (
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 7h-2.18c-.42 0-.8.26-.94.66L15.4 9H13l-1-2H9v2h2l1 2h2.6l-.6 1.5A3.99 3.99 0 0 0 10 12c-2.21 0-4 1.79-4 4H4a3 3 0 0 1 3-3c1.31 0 2.42.83 2.83 2h4.34A3.99 3.99 0 0 1 18 11h1a2 2 0 0 0 0-4zm-2 8a2 2 0 1 0 .001 3.999A2 2 0 0 0 17 15zM7 15a2 2 0 1 0 .001 3.999A2 2 0 0 0 7 15z"/>
+        </svg>
+      )
+    },
+    {
       title: "Importación de Vehículos",
       description: "Importamos automóviles y motocicletas desde cualquier parte del mundo",
       icon: (
@@ -30,11 +39,11 @@ const GestoriaAutomotor: React.FC = () => {
       )
     },
     {
-      title: "Asesoramiento Profesional",
-      description: "Equipo de escribanos, abogados, contadores y despachantes de aduana",
+      title: "Trámites y Papeles de Motovehículos",
+      description: "Transferencias, altas, bajas, duplicados y toda la documentación necesaria para motos y motovehículos",
       icon: (
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+          <path d="M19 7h-2.18c-.42 0-.8.26-.94.66L15.4 9H13l-1-2H9v2h2l1 2h2.6l-.6 1.5A3.99 3.99 0 0 0 10 12c-2.21 0-4 1.79-4 4H4a3 3 0 0 1 3-3c1.31 0 2.42.83 2.83 2h4.34A3.99 3.99 0 0 1 18 11h1a2 2 0 0 0 0-4zm-2 8a2 2 0 1 0 .001 3.999A2 2 0 0 0 17 15zM7 15a2 2 0 1 0 .001 3.999A2 2 0 0 0 7 15z"/>
         </svg>
       )
     },

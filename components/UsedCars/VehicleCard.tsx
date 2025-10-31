@@ -172,7 +172,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
 
   // Grid view
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <div 
+      className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer"
+      onClick={() => onShowDetails(car)}
+    >
       {/* Image Section */}
       <div className="relative h-48">
         <img
@@ -258,7 +261,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
 
         <div className="flex items-center justify-between">
           <button
-            onClick={() => onShowDetails(car)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onShowDetails(car);
+            }}
             className="px-3 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors duration-200"
           >
             Más Información
@@ -267,6 +273,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
             href={`https://api.whatsapp.com/send?phone=${car.seller.whatsapp}&text=${generateWhatsAppMessage()}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
             className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors duration-200"
           >
             WhatsApp

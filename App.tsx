@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import WelcomeHero from './components/WelcomeHero';
 import Hero from './components/Hero';
@@ -13,53 +14,80 @@ import Footer from './components/Footer';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 // import ConstructionPage from './components/ConstructionPage';
 
-const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'home' | '0km' | 'usados' | 'gestoria'>('home');
+const AppContent: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleShowCatalog = (type: '0km' | 'usados' | 'gestoria') => {
-    setCurrentView(type);
+    navigate(`/${type}`);
   };
 
   const handleGoHome = () => {
-    setCurrentView('home');
+    navigate('/home');
   };
+
+  // Al cambiar de sección, regresar al inicio de la página
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
+  // Redirigir / a /home
+  useEffect(() => {
+    if (location.pathname === '/') {
+      navigate('/home', { replace: true });
+    }
+  }, [location.pathname, navigate]);
+
+  const currentView = location.pathname === '/home' ? 'home' : 
+                      location.pathname === '/0km' ? '0km' :
+                      location.pathname === '/usados' ? 'usados' :
+                      location.pathname === '/gestoria' ? 'gestoria' : 'home';
 
   // Temporalmente ocultamos la página de construcción
   // return <ConstructionPage />;
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Header onShowCatalog={handleShowCatalog} onGoHome={handleGoHome} />
+    <div className="min-h-screen bg-gray-900 overflow-x-hidden">
+      <Header onShowCatalog={handleShowCatalog} onGoHome={handleGoHome} currentView={currentView} />
       
-      {currentView === 'home' && (
-        <>
-          <WelcomeHero onShowCatalog={handleShowCatalog} />
-          <div id="hero-section" style={{marginTop: '0'}}>
-            <Hero onShowCatalog={handleShowCatalog} />
-          </div>
-          <VehicleSlider onShowCatalog={handleShowCatalog} />
-          <BrandSlider />
-          <WhyChooseUs />
-          <FinancingBanner />
-        </>
-      )}
-      
-      {currentView === '0km' && (
-        <NewCarsSection />
-      )}
-      
-      {currentView === 'usados' && (
-        <UsedCarsSection />
-      )}
-      
-      {currentView === 'gestoria' && (
-        <GestoriaAutomotor />
-      )}
+      <Routes>
+        <Route path="/home" element={
+          <>
+            <WelcomeHero onShowCatalog={handleShowCatalog} />
+            <div id="hero-section" style={{marginTop: '0'}}>
+              <Hero onShowCatalog={handleShowCatalog} />
+            </div>
+            <VehicleSlider onShowCatalog={handleShowCatalog} />
+            <BrandSlider />
+            <WhyChooseUs />
+            <FinancingBanner />
+          </>
+        } />
+        <Route path="/0km" element={<NewCarsSection />} />
+        <Route path="/usados" element={<UsedCarsSection />} />
+        <Route path="/gestoria" element={<GestoriaAutomotor />} />
+        <Route path="*" element={
+          <>
+            <WelcomeHero onShowCatalog={handleShowCatalog} />
+            <div id="hero-section" style={{marginTop: '0'}}>
+              <Hero onShowCatalog={handleShowCatalog} />
+            </div>
+            <VehicleSlider onShowCatalog={handleShowCatalog} />
+            <BrandSlider />
+            <WhyChooseUs />
+            <FinancingBanner />
+          </>
+        } />
+      </Routes>
       
       <Footer />
       <WhatsAppFloatingButton />
     </div>
   );
+};
+
+const App: React.FC = () => {
+  return <AppContent />;
 };
 
 export default App;
