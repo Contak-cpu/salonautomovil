@@ -197,7 +197,7 @@ export const USED_CARS: UsedCar[] = [
     version: 'EX 2.0 A/T 4X4 CRDI',
     year: 2019,
     mileage: 30000,
-    price: 45900,
+    price: 42000,
     priceCurrency: 'USD',
     fuelType: 'Diésel',
     transmission: 'Automática',
