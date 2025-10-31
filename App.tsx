@@ -28,13 +28,22 @@ const AppContent: React.FC = () => {
 
   // Al cambiar de sección, regresar al inicio de la página
   useEffect(() => {
-    // Para gestoría, usar scroll instantáneo para evitar problemas de posicionamiento
+    // Para gestoría, considerar altura del header fixed
     if (location.pathname === '/gestoria') {
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      // Asegurar scroll después de un pequeño delay para que el componente se monte
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      }, 10);
+      const scrollToGestoria = () => {
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 128; // Altura del header con logo
+        window.scrollTo({ top: headerHeight, behavior: 'auto' });
+      };
+      scrollToGestoria();
+      // Múltiples intentos para asegurar el scroll
+      const timers = [
+        setTimeout(scrollToGestoria, 10),
+        setTimeout(scrollToGestoria, 50),
+        setTimeout(scrollToGestoria, 100),
+        setTimeout(scrollToGestoria, 200),
+      ];
+      return () => timers.forEach(timer => clearTimeout(timer));
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }

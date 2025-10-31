@@ -1,14 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const GestoriaAutomotor: React.FC = () => {
-  // Asegurar scroll al inicio cuando se monta el componente
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  // Asegurar scroll al inicio cuando se monta el componente, considerando la altura del header
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    // Asegurar después de un pequeño delay para que el header se ajuste
-    const timer = setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    }, 50);
-    return () => clearTimeout(timer);
+    const scrollToSection = () => {
+      // Obtener altura del header (fixed, con logo visible en gestoría)
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 128; // Fallback a altura desktop
+      
+      // Scroll a la posición del inicio de la sección menos el header
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const elementTop = rect.top + scrollTop;
+        const offsetPosition = Math.max(0, elementTop - headerHeight);
+        window.scrollTo({ top: offsetPosition, behavior: 'auto' });
+      } else {
+        // Fallback: scroll a la altura del header para que no tape el contenido
+        window.scrollTo({ top: headerHeight, behavior: 'auto' });
+      }
+    };
+
+    // Scroll inmediato
+    scrollToSection();
+
+    // Múltiples timeouts para asegurar que funcione después de que todo se renderice
+    const timers = [
+      setTimeout(scrollToSection, 10),
+      setTimeout(scrollToSection, 50),
+      setTimeout(scrollToSection, 100),
+      setTimeout(scrollToSection, 200),
+    ];
+
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
   }, []);
   const services = [
     {
@@ -102,7 +130,7 @@ const GestoriaAutomotor: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
+    <section ref={sectionRef} className="pt-44 md:pt-40 pb-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
       {/* Patrón de fondo */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
