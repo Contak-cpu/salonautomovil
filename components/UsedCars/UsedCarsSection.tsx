@@ -34,7 +34,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     brands: [],
     models: [],
     versions: [],
-    priceRange: [0, 60000000],
+    priceRange: [0, 100000000], // Aumentado para incluir vehículos en USD convertidos a ARS
     yearRange: [2000, 2024],
     mileageRange: [0, 200000],
     fuelTypes: [],

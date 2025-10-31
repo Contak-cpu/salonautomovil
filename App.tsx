@@ -28,7 +28,16 @@ const AppContent: React.FC = () => {
 
   // Al cambiar de sección, regresar al inicio de la página
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Para gestoría, usar scroll instantáneo para evitar problemas de posicionamiento
+    if (location.pathname === '/gestoria') {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      // Asegurar scroll después de un pequeño delay para que el componente se monte
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }, 10);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [location.pathname]);
 
   // Redirigir / a /home

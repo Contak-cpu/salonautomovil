@@ -1,6 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const BrandSlider: React.FC = () => {
+// Mapeo de nombres de logos a marcas reales en los datos de 0km (todas en mayúsculas)
+const brandMapping: Record<string, string> = {
+  'BMW': 'BMW',
+  'Fiat': 'FIAT',
+  'Toyota': 'TOYOTA',
+  'BAIC': 'BAIC',
+  'BYD': 'BYD',
+  // Nota: Volkswagen y Chevrolet pueden no tener vehículos 0km disponibles
+  // Los logos sin nombre específico (Logo 1-13) no tienen mapeo y navegarán sin filtro
+};
+
+interface BrandSliderProps {
+  onBrandClick?: (brandName: string) => void;
+}
+
+const BrandSlider: React.FC<BrandSliderProps> = ({ onBrandClick }) => {
+  const navigate = useNavigate();
+
   const brands = [
     {
       name: 'BMW',
@@ -87,6 +105,23 @@ const BrandSlider: React.FC = () => {
   // Triplicamos el array para crear un loop infinito continuo sin cortes
   const duplicatedBrands = [...brands, ...brands, ...brands];
 
+  const handleBrandClick = (brandName: string) => {
+    const mappedBrand = brandMapping[brandName];
+    if (mappedBrand) {
+      // Guardar la marca seleccionada en localStorage para que NewCarsSection la lea
+      localStorage.setItem('selectedBrand_0km', mappedBrand);
+      // Navegar a la sección 0km
+      navigate('/0km');
+      // Llamar callback si existe
+      if (onBrandClick) {
+        onBrandClick(mappedBrand);
+      }
+    } else {
+      // Si no hay mapeo, simplemente navegar a 0km sin filtro
+      navigate('/0km');
+    }
+  };
+
   return (
     <div className="relative py-12 bg-gray-dark overflow-hidden">
       {/* Fade effects en los bordes */}
@@ -101,6 +136,7 @@ const BrandSlider: React.FC = () => {
               key={`${brand.name}-${index}`}
               className="flex-shrink-0 mx-3 md:mx-8 lg:mx-12 flex items-center justify-center group cursor-pointer"
               style={{ width: '200px', height: '120px' }}
+              onClick={() => handleBrandClick(brand.name)}
             >
               <div className={`flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${brand.name === 'Toyota' ? 'w-[200px] h-[120px] md:w-[300px] md:h-[180px] lg:w-[560px] lg:h-[320px]' : 'w-24 h-20 md:w-32 md:h-28 lg:w-48 lg:h-40'}`}>
                 <img

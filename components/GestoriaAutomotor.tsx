@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const GestoriaAutomotor: React.FC = () => {
+  // Asegurar scroll al inicio cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    // Asegurar después de un pequeño delay para que el header se ajuste
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
   const services = [
     {
       title: "Gestoría Integral",

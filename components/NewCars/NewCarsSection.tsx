@@ -95,6 +95,17 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites));
     }
+
+    // Cargar marca seleccionada desde BrandSlider
+    const selectedBrand = localStorage.getItem('selectedBrand_0km');
+    if (selectedBrand) {
+      setFilters(prev => ({
+        ...prev,
+        brands: [selectedBrand]
+      }));
+      // Limpiar el localStorage después de aplicar
+      localStorage.removeItem('selectedBrand_0km');
+    }
   }, []);
 
   // Guardar favoritos en localStorage

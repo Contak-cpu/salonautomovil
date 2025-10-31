@@ -3,6 +3,13 @@ import Button from './ui/Button';
 import Text from './ui/Text';
 
 const FinancingBanner: React.FC = () => {
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '5493541579927';
+    const message = encodeURIComponent('Hola! Me interesa conocer más sobre las opciones de financiación y canje. ¿Podrían ayudarme?');
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <section 
         id="financing" 
@@ -19,7 +26,11 @@ const FinancingBanner: React.FC = () => {
             <Text variant="bodyLarge" className="mt-4 text-white">
                 Con nuestro programa de canje, cotizamos tu vehículo actual al mejor precio del mercado para que puedas acceder a tu próximo auto de la forma más conveniente.
             </Text>
-            <Button variant="whatsapp" className="mt-8">
+            <Button 
+                variant="whatsapp" 
+                className="mt-8"
+                onClick={handleWhatsAppClick}
+            >
                 Consultar con un asesor
             </Button>
         </div>

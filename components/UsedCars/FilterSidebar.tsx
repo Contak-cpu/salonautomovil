@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { UsedCar } from '../../constants/usedCarsData';
 
 interface FilterState {
@@ -94,6 +94,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   locations
 }) => {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  const [localPriceRange, setLocalPriceRange] = useState<[number, number] | null>(null);
   
   // Estados para controlar qué secciones están abiertas
   const [openSections, setOpenSections] = useState({
@@ -107,6 +108,11 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
     yearRange: false,
     mileageRange: false,
   });
+
+  // Sincronizar el rango local con el filtro cuando cambia externamente
+  useEffect(() => {
+    setLocalPriceRange(null);
+  }, [filters.priceRange]);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({
@@ -134,11 +140,26 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
     onFilterChange({ [key]: newArray });
   };
 
-  const handleRangeChange = (key: keyof FilterState, index: number, value: number) => {
-    const currentRange = filters[key] as [number, number];
-    const newRange: [number, number] = [...currentRange];
-    newRange[index] = value;
-    onFilterChange({ [key]: newRange });
+  const handleRangeChange = (key: keyof FilterState, index: number, value: number, isDragging: boolean = false) => {
+    if (key === 'priceRange') {
+      const currentRange = localPriceRange || filters.priceRange;
+      const newRange: [number, number] = [...currentRange];
+      newRange[index] = value;
+      
+      if (isDragging) {
+        // Mientras arrastra, actualizar solo el estado local para respuesta inmediata
+        setLocalPriceRange(newRange);
+      } else {
+        // Cuando se suelta, actualizar el estado global
+        setLocalPriceRange(null);
+        onFilterChange({ [key]: newRange });
+      }
+    } else {
+      const currentRange = filters[key] as [number, number];
+      const newRange: [number, number] = [...currentRange];
+      newRange[index] = value;
+      onFilterChange({ [key]: newRange });
+    }
   };
 
   const FilterContent = () => (
@@ -223,7 +244,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
         <div className="space-y-4">
           <div className="text-center">
             <span className="text-sm font-medium text-gray-900">
-              {formatPrice(filters.priceRange[0])} - {formatPrice(filters.priceRange[1])}
+              {formatPrice(localPriceRange ? localPriceRange[0] : filters.priceRange[0])} - {formatPrice(localPriceRange ? localPriceRange[1] : filters.priceRange[1])}
             </span>
           </div>
           <div className="space-y-3">
@@ -232,16 +253,11 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <input
                 type="range"
                 min="0"
-                max="50000000"
+                max="100000000"
                 step="500000"
-                value={filters.priceRange[0]}
-                onInput={(e) => handleRangeChange('priceRange', 0, parseInt((e.target as HTMLInputElement).value))}
-                onChange={(e) => handleRangeChange('priceRange', 0, parseInt(e.target.value))}
-                onMouseMove={(e) => {
-                  if (e.buttons === 1) {
-                    handleRangeChange('priceRange', 0, parseInt((e.target as HTMLInputElement).value));
-                  }
-                }}
+                value={localPriceRange ? localPriceRange[0] : filters.priceRange[0]}
+                onChange={(e) => handleRangeChange('priceRange', 0, parseInt(e.target.value), false)}
+                onInput={(e) => handleRangeChange('priceRange', 0, parseInt((e.target as HTMLInputElement).value), true)}
                 className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider-thumb"
               />
             </div>
@@ -250,16 +266,11 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <input
                 type="range"
                 min="0"
-                max="50000000"
+                max="100000000"
                 step="500000"
-                value={filters.priceRange[1]}
-                onInput={(e) => handleRangeChange('priceRange', 1, parseInt((e.target as HTMLInputElement).value))}
-                onChange={(e) => handleRangeChange('priceRange', 1, parseInt(e.target.value))}
-                onMouseMove={(e) => {
-                  if (e.buttons === 1) {
-                    handleRangeChange('priceRange', 1, parseInt((e.target as HTMLInputElement).value));
-                  }
-                }}
+                value={localPriceRange ? localPriceRange[1] : filters.priceRange[1]}
+                onChange={(e) => handleRangeChange('priceRange', 1, parseInt(e.target.value), false)}
+                onInput={(e) => handleRangeChange('priceRange', 1, parseInt((e.target as HTMLInputElement).value), true)}
                 className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider-thumb"
               />
             </div>
