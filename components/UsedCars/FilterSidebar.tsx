@@ -310,7 +310,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <input
                 type="range"
                 min="0"
-                max="100000000"
+                max="150000000"
                 step="500000"
                 value={localPriceRange ? localPriceRange[0] : filters.priceRange[0]}
                 onChange={(e) => {
@@ -329,7 +329,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <input
                 type="range"
                 min="0"
-                max="100000000"
+                max="150000000"
                 step="500000"
                 value={localPriceRange ? localPriceRange[1] : filters.priceRange[1]}
                 onChange={(e) => {

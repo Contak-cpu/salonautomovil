@@ -71,7 +71,7 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
     brands: [],
     models: [],
     versions: [],
-    priceRange: [0, 60000000],
+    priceRange: [0, 150000000],
     yearRange: [2024, 2025],
     mileageRange: [0, 100],
     fuelTypes: [],
@@ -278,7 +278,7 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
       brands: [],
       models: [],
       versions: [],
-      priceRange: [0, 50000000],
+      priceRange: [0, 150000000],
       yearRange: [2024, 2025],
       mileageRange: [0, 100],
       fuelTypes: [],
@@ -330,7 +330,7 @@ const NewCarsSection: React.FC<NewCarsSectionProps> = ({ onShowVehicleDetail }) 
     if (filters.search && filters.search.trim() !== '') count += 1;
     
     // Contar rangos solo si no están en sus valores por defecto
-    if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 60000000) count += 1;
+    if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 150000000) count += 1;
     if (filters.yearRange[0] !== 2024 || filters.yearRange[1] !== 2025) count += 1;
     if (filters.mileageRange[0] !== 0 || filters.mileageRange[1] !== 100) count += 1;
     
