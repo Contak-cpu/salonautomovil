@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { UsedCar } from '../../constants/usedCarsData';
 
 interface FilterState {
@@ -95,6 +95,9 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
 }) => {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [localPriceRange, setLocalPriceRange] = useState<[number, number] | null>(null);
+  const [isDraggingPrice, setIsDraggingPrice] = useState(false);
+  const localPriceRangeRef = useRef<[number, number] | null>(null);
+  const isDraggingRef = useRef(false);
   
   // Estados para controlar qué secciones están abiertas
   const [openSections, setOpenSections] = useState({
@@ -111,8 +114,44 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   // Sincronizar el rango local con el filtro cuando cambia externamente
   useEffect(() => {
-    setLocalPriceRange(null);
-  }, [filters.priceRange]);
+    if (!isDraggingPrice) {
+      setLocalPriceRange(null);
+      localPriceRangeRef.current = null;
+    }
+  }, [filters.priceRange, isDraggingPrice]);
+
+  // Manejar cuando el usuario suelta el mouse fuera del input
+  useEffect(() => {
+    if (isDraggingPrice) {
+      const handleMouseUp = () => {
+        if (localPriceRangeRef.current) {
+          onFilterChange({ priceRange: localPriceRangeRef.current });
+        }
+        isDraggingRef.current = false;
+        setIsDraggingPrice(false);
+        setLocalPriceRange(null);
+        localPriceRangeRef.current = null;
+      };
+
+      const handleTouchEnd = () => {
+        if (localPriceRangeRef.current) {
+          onFilterChange({ priceRange: localPriceRangeRef.current });
+        }
+        isDraggingRef.current = false;
+        setIsDraggingPrice(false);
+        setLocalPriceRange(null);
+        localPriceRangeRef.current = null;
+      };
+
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchend', handleTouchEnd);
+      
+      return () => {
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
+  }, [isDraggingPrice, onFilterChange]);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({
@@ -140,19 +179,21 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
     onFilterChange({ [key]: newArray });
   };
 
-  const handleRangeChange = (key: keyof FilterState, index: number, value: number, isDragging: boolean = false) => {
+  const handleRangeChange = (key: keyof FilterState, index: number, value: number) => {
     if (key === 'priceRange') {
       const currentRange = localPriceRange || filters.priceRange;
       const newRange: [number, number] = [...currentRange];
       newRange[index] = value;
       
-      if (isDragging) {
-        // Mientras arrastra, actualizar solo el estado local para respuesta inmediata
-        setLocalPriceRange(newRange);
-      } else {
-        // Cuando se suelta, actualizar el estado global
-        setLocalPriceRange(null);
+      // Actualizar el estado local mientras se arrastra para respuesta inmediata
+      setLocalPriceRange(newRange);
+      localPriceRangeRef.current = newRange;
+      
+      // Si no estamos arrastrando, aplicar el cambio inmediatamente
+      if (!isDraggingRef.current) {
         onFilterChange({ [key]: newRange });
+        setLocalPriceRange(null);
+        localPriceRangeRef.current = null;
       }
     } else {
       const currentRange = filters[key] as [number, number];
@@ -160,6 +201,22 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
       newRange[index] = value;
       onFilterChange({ [key]: newRange });
     }
+  };
+
+  const handlePriceRangeMouseDown = () => {
+    isDraggingRef.current = true;
+    setIsDraggingPrice(true);
+  };
+
+  const handlePriceRangeMouseUp = () => {
+    // El efecto global manejará esto, pero también lo manejamos aquí para respuesta más rápida
+    if (localPriceRangeRef.current) {
+      onFilterChange({ priceRange: localPriceRangeRef.current });
+    }
+    isDraggingRef.current = false;
+    setIsDraggingPrice(false);
+    setLocalPriceRange(null);
+    localPriceRangeRef.current = null;
   };
 
   const FilterContent = () => (
@@ -256,8 +313,14 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 max="100000000"
                 step="500000"
                 value={localPriceRange ? localPriceRange[0] : filters.priceRange[0]}
-                onChange={(e) => handleRangeChange('priceRange', 0, parseInt(e.target.value), false)}
-                onInput={(e) => handleRangeChange('priceRange', 0, parseInt((e.target as HTMLInputElement).value), true)}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  handleRangeChange('priceRange', 0, value);
+                }}
+                onMouseDown={handlePriceRangeMouseDown}
+                onMouseUp={handlePriceRangeMouseUp}
+                onTouchStart={handlePriceRangeMouseDown}
+                onTouchEnd={handlePriceRangeMouseUp}
                 className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider-thumb"
               />
             </div>
@@ -269,8 +332,14 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 max="100000000"
                 step="500000"
                 value={localPriceRange ? localPriceRange[1] : filters.priceRange[1]}
-                onChange={(e) => handleRangeChange('priceRange', 1, parseInt(e.target.value), false)}
-                onInput={(e) => handleRangeChange('priceRange', 1, parseInt((e.target as HTMLInputElement).value), true)}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  handleRangeChange('priceRange', 1, value);
+                }}
+                onMouseDown={handlePriceRangeMouseDown}
+                onMouseUp={handlePriceRangeMouseUp}
+                onTouchStart={handlePriceRangeMouseDown}
+                onTouchEnd={handlePriceRangeMouseUp}
                 className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider-thumb"
               />
             </div>
