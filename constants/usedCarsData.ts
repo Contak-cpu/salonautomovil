@@ -83,33 +83,6 @@ export const USED_CARS: UsedCar[] = [
     createdAt: '2024-09-01'
   },
   {
-    id: 'used-003',
-    make: 'Citroën',
-    model: 'DS3',
-    version: 'Puretech 110 AT6 SO CHIC',
-    year: 2018,
-    mileage: 73000,
-    price: 17900000,
-    priceCurrency: 'ARS',
-    fuelType: 'Nafta',
-    transmission: 'Automática',
-    engine: '1.6L 4 Cilindros',
-    color: 'Blanco Perlado',
-    images: ['/images/used-cars/ds3.1.png', '/images/used-cars/ds3.2.png', '/images/used-cars/ds3.4.png'],
-    features: ['Aire Acondicionado', 'Dirección Asistida', 'ABS', 'Airbags', 'Bluetooth', 'Cámara de Retroceso'],
-    location: 'Villa Carlos Paz, Córdoba',
-    isWarranty: true,
-    isInspected: true,
-    isFinancing: true,
-    description: 'Sedán 3 puertas, color blanco perlado, único dueño, impecable estado.',
-    seller: {
-      name: 'Salón del Automóvil',
-      phone: '+54 9 3541 579-927',
-      whatsapp: '5493541579927'
-    },
-    createdAt: '2024-09-01'
-  },
-  {
     id: 'used-004',
     make: 'Mercedes-Benz',
     model: 'A200',
@@ -129,33 +102,6 @@ export const USED_CARS: UsedCar[] = [
     isInspected: true,
     isFinancing: true,
     description: 'Sedán 5 puertas, caja automática, único dueño, impecable, color gris claro.',
-    seller: {
-      name: 'Salón del Automóvil',
-      phone: '+54 9 3541 579-927',
-      whatsapp: '5493541579927'
-    },
-    createdAt: '2024-09-01'
-  },
-  {
-    id: 'used-005',
-    make: 'Citroën',
-    model: 'C4',
-    version: 'SX 5 Puertas 2.0L 16v MT',
-    year: 2011,
-    mileage: 96000,
-    price: 11900000,
-    priceCurrency: 'ARS',
-    fuelType: 'Nafta',
-    transmission: 'Manual',
-    engine: '2.0L 16v 4 Cilindros',
-    color: 'Blanco',
-    images: ['/images/used-cars/c3.1.png', '/images/used-cars/c3.2.png', '/images/used-cars/c3.3.png'],
-    features: ['Aire Acondicionado', 'Dirección Asistida', 'ABS', 'Airbags', 'Bluetooth'],
-    location: 'Villa Carlos Paz, Córdoba',
-    isWarranty: true,
-    isInspected: true,
-    isFinancing: true,
-    description: 'Impecable, único dueño, exterior blanco.',
     seller: {
       name: 'Salón del Automóvil',
       phone: '+54 9 3541 579-927',

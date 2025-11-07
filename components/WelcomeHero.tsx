@@ -24,13 +24,13 @@ const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
       </div>
       
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto pt-4 md:pt-6">
+      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
         {/* Logo */}
-        <div className="mb-3 md:mb-4 flex justify-center">
+        <div className="flex justify-center">
           <img 
             src="/images/logo/logo.png" 
             alt="Salón del Automóvil" 
-            className="h-32 md:h-48 lg:h-64 xl:h-72 w-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+            className="h-56 md:h-[20rem] lg:h-[26rem] xl:h-[30rem] w-auto drop-shadow-[0_35px_45px_rgba(0,0,0,0.45)] hover:scale-105 transition-transform duration-500"
           />
         </div>
         
@@ -44,7 +44,7 @@ const WelcomeHero: React.FC<WelcomeHeroProps> = ({ onShowCatalog }) => {
         </Text>
         
         {/* Persuasive Copy */}
-        <div className="mb-4 max-w-3xl mx-auto">
+        <div className="mb-6 max-w-3xl mx-auto">
           <Text 
             variant="bodyLarge" 
             className="text-sm md:text-base lg:text-lg text-gray-100 leading-relaxed font-light"

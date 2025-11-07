@@ -1,8 +1,8 @@
 import React from 'react';
 import { VEHICLES_0KM } from '../constants';
-import type { Vehicle } from '../types';
 import Button from './ui/Button';
 import Text from './ui/Text';
+import { separateModelAndVersion } from '../utils/modelVersion';
 
 interface VehicleSliderProps {
   onShowCatalog: (type: '0km' | 'usados' | 'gestoria') => void;
@@ -15,10 +15,10 @@ const VehicleSlider: React.FC<VehicleSliderProps> = ({ onShowCatalog }) => {
   // Duplicamos el array para crear el efecto de loop infinito
   const duplicatedVehicles = [...featuredVehicles, ...featuredVehicles];
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number, currency: 'ARS' | 'USD' = 'ARS') => {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
-      currency: 'ARS',
+      currency,
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
@@ -47,12 +47,11 @@ const VehicleSlider: React.FC<VehicleSliderProps> = ({ onShowCatalog }) => {
               {duplicatedVehicles.map((vehicle, index) => (
                 <div
                   key={`${vehicle.id}-${index}`}
-                  className="flex-shrink-0 mx-4 group cursor-pointer"
-                  style={{ width: '320px' }}
+                  className="flex-shrink-0 mx-3 sm:mx-4 group cursor-pointer w-64 sm:w-72"
                 >
-                  <div className="bg-gray-900 rounded-enhanced overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                  <div className="bg-gray-900 rounded-enhanced overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 flex flex-col h-full">
                     {/* Imagen del vehículo */}
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative w-full overflow-hidden aspect-[4/3]">
                       <img
                         src={vehicle.image}
                         alt={`${vehicle.make} ${vehicle.model}`}
@@ -64,34 +63,52 @@ const VehicleSlider: React.FC<VehicleSliderProps> = ({ onShowCatalog }) => {
                     </div>
 
                     {/* Información del vehículo */}
-                    <div className="p-4">
+                    <div className="p-4 flex flex-col flex-1">
                       <Text variant="cardTitle" as="h3">
-                        {vehicle.make} {vehicle.model}
+                        {vehicle.make}{' '}
+                        {separateModelAndVersion(vehicle.model).model}
                       </Text>
                       
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between text-sm">
-                          <Text variant="infoLabel" className="text-white">Año:</Text>
-                          <Text variant="infoValue">{vehicle.year}</Text>
+                      <div className="space-y-2 mt-3 mb-4 min-h-[96px]">
+                        <div className="flex items-center justify-between gap-2 text-sm">
+                          <Text variant="infoLabel" className="text-white flex-shrink-0">Año:</Text>
+                          <Text 
+                            variant="infoValue" 
+                            className="truncate text-right text-white/90"
+                          >
+                            {vehicle.year || 'N/A'}
+                          </Text>
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <Text variant="infoLabel" className="text-white">Combustible:</Text>
-                          <Text variant="infoValue">{vehicle.fuel}</Text>
+                        <div className="flex items-center justify-between gap-2 text-sm">
+                          <Text variant="infoLabel" className="text-white flex-shrink-0">Combustible:</Text>
+                          <Text 
+                            variant="infoValue" 
+                            className="truncate text-right text-white/90"
+                          >
+                            {vehicle.fuel || 'N/A'}
+                          </Text>
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <Text variant="infoLabel" className="text-white">Transmisión:</Text>
-                          <Text variant="infoValue">{vehicle.transmission}</Text>
+                        <div className="flex items-center justify-between gap-2 text-sm">
+                          <Text variant="infoLabel" className="text-white flex-shrink-0">Transmisión:</Text>
+                          <Text 
+                            variant="infoValue" 
+                            className="truncate text-right text-white/90"
+                          >
+                            {vehicle.transmission || 'N/A'}
+                          </Text>
                         </div>
                       </div>
 
                       <div className="mb-4">
                         <Text variant="priceLabel" className="text-white">Precio</Text>
                         <Text variant="priceValue" className="text-white">
-                          Consultar
+                          {vehicle.price && vehicle.price > 0
+                            ? formatPrice(vehicle.price, vehicle.priceCurrency || 'ARS')
+                            : 'Consultar'}
                         </Text>
                       </div>
 
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 mt-auto">
                         <Button 
                           variant="primary"
                           size="sm"
