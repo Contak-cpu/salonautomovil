@@ -365,7 +365,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <label className="block text-xs text-gray-600 mb-1">Año mínimo</label>
               <input
                 type="range"
-                min="2000"
+                min="1990"
                 max="2025"
                 step="1"
                 value={filters.yearRange[0]}
@@ -377,7 +377,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <label className="block text-xs text-gray-600 mb-1">Año máximo</label>
               <input
                 type="range"
-                min="2000"
+                min="1990"
                 max="2025"
                 step="1"
                 value={filters.yearRange[1]}

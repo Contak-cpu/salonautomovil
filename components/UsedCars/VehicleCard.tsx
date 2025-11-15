@@ -67,6 +67,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
               src={car.images[currentImageIndex] || '/images/placeholder-car.jpg'}
               alt={`${car.make} ${car.model}`}
               className="w-full h-full object-cover"
+              style={car.make === 'Suzuki' && car.model === 'Maruti Gypsy' ? { objectPosition: 'center 30%' } : undefined}
             />
             {car.images.length > 1 && (
               <>
@@ -182,6 +183,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({
           src={car.images[currentImageIndex] || '/images/placeholder-car.jpg'}
           alt={`${car.make} ${car.model}`}
           className="w-full h-full object-cover"
+          style={car.make === 'Suzuki' && car.model === 'Maruti Gypsy' ? { objectPosition: 'center 30%' } : undefined}
         />
         {car.images.length > 1 && (
           <>

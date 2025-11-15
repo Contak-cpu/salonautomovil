@@ -35,7 +35,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     models: [],
     versions: [],
     priceRange: [0, 100000000], // Aumentado para incluir vehículos en USD convertidos a ARS
-    yearRange: [2000, 2024],
+    yearRange: [1990, 2024],
     mileageRange: [0, 200000],
     fuelTypes: [],
     transmissions: [],
@@ -207,7 +207,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
       models: [],
       versions: [],
       priceRange: [0, 60000000],
-      yearRange: [2000, 2024],
+      yearRange: [1990, 2024],
       mileageRange: [0, 200000],
       fuelTypes: [],
       transmissions: [],
@@ -259,7 +259,7 @@ const UsedCarsSection: React.FC<UsedCarsSectionProps> = ({ onShowVehicleDetail }
     
     // Contar rangos solo si no están en sus valores por defecto
     if (filters.priceRange[0] !== 0 || filters.priceRange[1] !== 60000000) count += 1;
-    if (filters.yearRange[0] !== 2000 || filters.yearRange[1] !== 2024) count += 1;
+    if (filters.yearRange[0] !== 1990 || filters.yearRange[1] !== 2024) count += 1;
     if (filters.mileageRange[0] !== 0 || filters.mileageRange[1] !== 200000) count += 1;
     
     return count;
