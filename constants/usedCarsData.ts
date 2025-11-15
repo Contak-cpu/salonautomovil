@@ -245,6 +245,33 @@ export const USED_CARS: UsedCar[] = [
     createdAt: '2024-09-01'
   },
   {
+    id: 'used-014',
+    make: 'BMW',
+    model: '530D',
+    version: 'Sedan Executive Steptronic',
+    year: 2005,
+    mileage: 0,
+    price: 14900,
+    priceCurrency: 'USD',
+    fuelType: 'Diésel',
+    transmission: 'Automática',
+    engine: '3.0L Diesel 6 Cilindros',
+    color: 'Gris Oscuro',
+    images: ['/images/used-cars/Bmw530D/bmw1.png', '/images/used-cars/Bmw530D/bmw2.png', '/images/used-cars/Bmw530D/bmw3.png'],
+    features: ['Aire Acondicionado', 'Dirección Asistida', 'ABS', 'ESP', 'Airbags', 'Tapizado de Cuero', 'Asientos Eléctricos', 'Steptronic'],
+    location: 'Villa Carlos Paz, Córdoba',
+    isWarranty: true,
+    isInspected: true,
+    isFinancing: true,
+    description: '530D Sedan Executive Steptronic diesel, año 2005, impecable, color gris oscuro.',
+    seller: {
+      name: 'Salón del Automóvil',
+      phone: '+54 9 3541 579-927',
+      whatsapp: '5493541579927'
+    },
+    createdAt: '2024-09-01'
+  },
+  {
     id: 'used-012',
     make: 'Audi',
     model: 'Q5',
@@ -275,7 +302,7 @@ export const USED_CARS: UsedCar[] = [
 
 export const BRANDS = [
   'Peugeot', 'Fiat', 'Citroën', 'Mercedes-Benz', 'Renault', 
-  'Kia', 'Suzuki', 'Audi', 'Volkswagen', 'Ford'
+  'Kia', 'Suzuki', 'Audi', 'Volkswagen', 'Ford', 'BMW'
 ];
 
 export const FUEL_TYPES = ['Nafta', 'Diésel', 'Híbrido', 'Eléctrico'];
